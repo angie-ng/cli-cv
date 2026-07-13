@@ -1,3 +1,5 @@
+// here is what the openlink command can open, you can add more links here
+// those are basically the arguments that the openlink command can take, and the corresponding URLs
 const LINK_MAP = {
   github: 'https://github.com/angie-ng',
   linkedin: 'https://www.linkedin.com/in/angelika-viktorinova/',
