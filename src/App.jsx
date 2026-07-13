@@ -1,33 +1,12 @@
 import { useMemo, useState } from 'react'
+import { executeCommand } from './commands'
 import './App.css'
-
-const HELP_LINES = [
-  'Available commands:',
-  '  help  Show this help message',
-]
 
 function App() {
   const [currentInput, setCurrentInput] = useState('')
   const [history, setHistory] = useState([])
 
   const promptLabel = useMemo(() => 'angelika@cv:~$', [])
-
-  const runCommand = (rawInput) => {
-    const command = rawInput.trim()
-    if (!command) return null
-
-    if (command === 'help') {
-      return {
-        output: HELP_LINES,
-        isError: false,
-      }
-    }
-
-    return {
-      output: [`command not found: ${command}`],
-      isError: true,
-    }
-  }
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -36,14 +15,23 @@ function App() {
     setCurrentInput('')
     if (!typed) return
 
-    const result = runCommand(typed)
+    const result = executeCommand(typed)
+
+    if (!result) return
+
+    // Special command actions (e.g. clear)
+    if (result.action === 'clear') {
+      setHistory([])
+      return
+    }
+
     setHistory((prev) => [
       ...prev,
       {
         id: crypto.randomUUID(),
         command: typed,
-        output: result?.output ?? [],
-        isError: result?.isError ?? false,
+        output: result.output ?? [],
+        isError: result.isError ?? false,
       },
     ])
   }
@@ -69,9 +57,9 @@ function App() {
                   <span className="prompt-label">{promptLabel}</span>{' '}
                   <span>{entry.command}</span>
                 </p>
-                {entry.output.map((line) => (
+                {entry.output.map((line, index) => (
                   <p
-                    key={`${entry.id}-${line}`}
+                    key={`${entry.id}-${index}`}
                     className={entry.isError ? 'terminal-output error' : 'terminal-output'}
                   >
                     {line}
