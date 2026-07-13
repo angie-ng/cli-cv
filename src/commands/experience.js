@@ -1,3 +1,5 @@
+import cv from '../data/cv.json'
+
 export function experienceCommand(args = []) {
   if (args.length > 0) {
     return {
@@ -6,13 +8,20 @@ export function experienceCommand(args = []) {
     }
   }
 
-  return {
-    output: [
-      'Experience',
-      '-----',
-      'Service Desk Specialist at Embedit, Brno, Czech Republic (2024)',
-      'DevOps Engineer Trainee at Hackihub, Brno, Czech Republic (2026)',
-    ],
-    isError: false,
+  const lines = ['Experience', '----------']
+
+  cv.experience.forEach((item) => {
+    lines.push(`${item.role.padEnd(26)} ${item.company.padEnd(26)} ${item.period}`)
+  
+    item.responsibilities.forEach((resp) => {
+      lines.push(`  • ${resp}`)
+    })
+      lines.push('\u00A0') // non-braking space to create an empty line between experiences
+    })
+    
+  if (lines[lines.length - 1] === '\u00A0') {
+    lines.pop() // removes the last extra empty line
   }
+
+  return { output: lines, isError: false }
 }
