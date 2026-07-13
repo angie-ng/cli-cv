@@ -1,0 +1,117 @@
+{
+  "profile": {
+    "name": "Angelika Viktorinová",
+    "title": "Junior DevOps Engineer",
+    "focus": "Cloud & Linux",
+    "summary": "Aspiring Junior DevOps engineer transitioning into IT through self-directed study. Learning Linux, Git, Docker, CI/CD and cloud deployment via practical labs and personal projects. Highly motivated to learn, take responsibility, and grow in a real-world DevOps environment."
+  },
+  "contact": {
+    "linkedin": "https://www.linkedin.com/in/angelika-viktorinova/",
+    "email": "angelika.viktorinova@seznam.cz",
+    "github": "https://github.com/angie-ng"
+  },
+  "skills": {
+    "technologies": [
+      "Linux",
+      "Bash",
+      "Docker",
+      "Docker Compose",
+      "Kubernetes",
+      "CI/CD pipelines",
+      "GitHub Actions",
+      "Traefik",
+      "Oracle Cloud",
+      "AWS"
+    ],
+    "tools": [
+      "Git",
+      "Jira",
+      "Grafana",
+      "Splunk"
+    ],
+    "languages": {
+      "cz": "C2",
+      "en": "C1",
+      "fr": "B1",
+      "it": "A2"
+    },
+    "soft_skills": [
+      "Analytical thinking",
+      "Attention to detail",
+      "Persistence",
+      "Communication",
+      "Teamwork"
+    ]
+  },
+  "projects": [
+    {
+      "name": "DafneApp",
+      "type": "Personal DevOps Project",
+      "stack": [
+        "Python",
+        "Flask",
+        "Docker",
+        "Docker Compose",
+        "GitHub Actions",
+        "Traefik",
+        "Oracle Cloud"
+      ],
+      "description": [
+        "End-to-end DevOps workflow implementation",
+        "Containerized Flask application with Docker",
+        "CI/CD pipelines with automated testing, image build and registry push",
+        "Continuous deployment via SSH using custom deploy.sh script",
+        "HTTPS routing and certificate management with Traefik",
+        "Fully automated production deployment on Oracle Cloud"
+      ],
+      "repository": "https://github.com/angie-ng/first-devops-project"
+    },
+    {
+      "name": "Self-Directed Learning Labs",
+      "focus": [
+        "Linux administration",
+        "Containerization",
+        "Kubernetes",
+        "Terraform",
+        "Cloud fundamentals"
+      ],
+      "method": "Online courses and home labs"
+    }
+  ],
+  "experience": [
+    {
+      "role": "Service Desk Operator",
+      "company": "EmbedIT",
+      "period": "2024",
+      "responsibilities": [
+        "First-line support (ticket creation, classification, assignment, escalation)",
+        "Incident resolution and basic troubleshooting",
+        "Active Directory and IDM access management",
+        "L1 investigation",
+        "DNS configuration",
+        "Monitoring using Grafana and Splunk",
+        "Cooperation with international teams"
+      ]
+    },
+    {
+      "role": "IT Support / Secretary",
+      "company": "Fakultní nemocnice Brno",
+      "period": "2020–2024",
+      "responsibilities": [
+        "Software and hardware troubleshooting support",
+        "IT process improvements",
+        "Department website administration"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Masaryk University, Brno",
+      "period": "2008–2015"
+    },
+    {
+      "institution": "Gymnázium Matyáše Lercha, Brno",
+      "period": "2004–2008"
+    }
+  ]
+}
