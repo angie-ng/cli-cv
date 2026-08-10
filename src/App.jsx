@@ -18,7 +18,10 @@ function App() {
     setCurrentInput('')
     if (!typed) return
 
-    setCommandHistory((prev) => [...prev, typed])
+    setCommandHistory((prev) => {
+      const next = prev[prev.length - 1] === typed ? prev : [...prev, typed]
+      return next.slice(-50)
+    })
     setHistoryIndex(null)
 
     const result = executeCommand(typed)
