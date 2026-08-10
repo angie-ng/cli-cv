@@ -1,3 +1,5 @@
+import cv from '../data/cv.json'
+
 export function contactCommand(args = []) {
   if (args.length > 0) {
     return {
@@ -6,12 +8,15 @@ export function contactCommand(args = []) {
     }
   }
 
+  const { email, linkedin, github } = cv.contact
+
   return {
     output: [
       'Contact',
-      '-----',
-      'Email: angelika.viktorinova@seznam.cz',
-      'Phone: +420 721 500 320',
+      '-------',
+      `Email:    ${email}`,
+      `LinkedIn: ${linkedin}`,
+      `GitHub:   ${github}`,
     ],
     isError: false,
   }

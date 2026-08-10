@@ -48,7 +48,7 @@ function App() {
 
         <div className="terminal-body">
           <p className="terminal-line">Welcome to Angelika&apos;s interactive CV terminal.</p>
-          <p className="terminal-line">Type a command and press Enter.</p>
+          <p className="terminal-line">To see available commands, type "help" and press Enter.</p>
 
           <div className="terminal-history" aria-live="polite">
             {history.map((entry) => (

@@ -1,15 +1,16 @@
-// here is what the openlink command can open, you can add more links here
-// those are basically the arguments that the openlink command can take, and the corresponding URLs
+import cv from '../data/cv.json'
+
+// the openlink command opens one of the known links in a new browser tab
+// the available link names are derived from cv.json (contact section)
 const LINK_MAP = {
-  github: 'https://github.com/angie-ng',
-  linkedin: 'https://www.linkedin.com/in/angelika-viktorinova/',
-  portfolio: 'https://github.com/angie-ng',
+  github: cv.contact.github,
+  linkedin: cv.contact.linkedin,
 }
 
 export function openLinkCommand(args = []) {
   if (args.length !== 1) {
     return {
-      output: ['Usage: open <github|linkedin|portfolio>'],
+      output: ['Usage: openlink <github|linkedin>'],
       isError: true,
     }
   }
