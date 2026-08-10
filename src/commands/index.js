@@ -22,6 +22,8 @@ const COMMANDS = {
   openlink: openLinkCommand,
 }
 
+export const COMMAND_NAMES = Object.keys(COMMANDS)
+
 export function executeCommand(rawInput) {
   const trimmed = rawInput.trim()
   if (!trimmed) return null
