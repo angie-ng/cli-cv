@@ -1,3 +1,5 @@
+import cv from '../data/cv.json'
+
 export function linksCommand(args = []) {
   if (args.length > 0) {
     return {
@@ -6,12 +8,14 @@ export function linksCommand(args = []) {
     }
   }
 
+  const { github, linkedin } = cv.contact
+
   return {
     output: [
       'Links',
       '-----',
-      'GitHub: https://github.com/angie-ng',
-      'LinkedIn: https://www.linkedin.com/in/angelika-viktorinova/',
+      `GitHub:   ${github}`,
+      `LinkedIn: ${linkedin}`,
     ],
     isError: false,
   }

@@ -1,3 +1,5 @@
+import cv from '../data/cv.json'
+
 export function educationCommand(args = []) {
   if (args.length > 0) {
     return {
@@ -6,12 +8,11 @@ export function educationCommand(args = []) {
     }
   }
 
-  return {
-    output: [
-      'Education',
-      '-----',
-      'Masaryk University, Brno, Czech Republic (2015)',
-    ],
-    isError: false,
-  }
+  const lines = ['Education', '---------']
+
+  cv.education.forEach((item) => {
+    lines.push(`${item.institution.padEnd(36)} ${item.period}`)
+  })
+
+  return { output: lines, isError: false }
 }

@@ -1,3 +1,5 @@
+import cv from '../data/cv.json'
+
 export function aboutCommand(args = []) {
   if (args.length > 0) {
     return {
@@ -6,13 +8,16 @@ export function aboutCommand(args = []) {
     }
   }
 
+  const { name, title, focus, summary } = cv.profile
+
   return {
     output: [
       'About',
       '-----',
-      'My name is Angelika Viktorinova and I am a Junior DevOps Engineer.',
-      'I love to learn new technologies and improve my skills in the field of DevOps.',
-      'I am based in Brno.',
+      `${name} — ${title}`,
+      `Focus: ${focus}`,
+      '\u00A0',
+      summary,
     ],
     isError: false,
   }
