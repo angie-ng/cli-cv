@@ -21,9 +21,9 @@
 
 ## 4) Language Switching
 
-- [ ] Decide JSON structure for multilingual content (`cs` / `en`)
-- [ ] Add command `lang <cs|en>`
-- [ ] Ensure all command outputs respect active language
+- [x] Decide JSON structure for multilingual content (`cz` / `en`)
+- [x] Add option --lang for displaying output in other languages
+- [x] Ensure all command outputs use --lang for their output
 
 ## 5) History Navigation
 
@@ -34,15 +34,14 @@
 ## 6) Tab Completion
 
 - [x] Add `Tab` completion for command names
-- [ ] (Later) extend completion to arguments
+- [x] Extend completion to arguments
 
 ## 7) Advanced Commands
 
-- [x] Add `openlink <name>` command and map known links
-- [ ] Add `ls`, `cat`, `pwd` (and optionally `cd`) and flags
-- [ ] Integrate advanced commands with same `cv.json` source
+- [x] Add `openlink <name, project id, URL>`, openlink without argument lists command and map known links
+- [x] Add `ls`, `cat`, `pwd` (and optionally `cd`) and flags
+- [x] Integrate advanced commands with same `cv.json` source
 - [x] Decide how to implement `ls/cat/cd/pwd`:
-  - [x] fake/effect mode (fixed outputs)
   - [x] real virtual navigation over CV sections - decided for this one
 
 ## 8) UX Cleanup
@@ -55,7 +54,7 @@
 
 ## 9) Quality / Stability
 
-- [ ] Cover edge cases (unknown command, extra args, empty values)
+- [x] Cover edge cases (unknown command, extra args, empty values)
 
 ## 10) Documentation
 
