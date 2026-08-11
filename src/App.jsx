@@ -1,21 +1,61 @@
 import { useMemo, useRef, useState } from 'react'
 import { COMMAND_NAMES, executeCommand } from './commands'
+import { completeInputLine } from './commands/shared/complete'
+import { HOME_PATH } from './commands/shared/vfs'
 import './App.css'
+
+const URL_IN_TEXT = /https?:\/\/[^\s]+/gi
+
+function formatPrompt(cwd) {
+  // "~" means the reader home directory, just like a real shell.
+  const pathPart = cwd === HOME_PATH ? '~' : cwd
+  return `reader@angelika-cv:${pathPart}$`
+}
+
+/** Split a line into text and clickable http(s) link segments. */
+function renderOutputLine(line) {
+  const parts = []
+  let lastIndex = 0
+  const pattern = new RegExp(URL_IN_TEXT.source, URL_IN_TEXT.flags)
+  let match = pattern.exec(line)
+
+  while (match) {
+    if (match.index > lastIndex) {
+      parts.push(line.slice(lastIndex, match.index))
+    }
+    const url = match[0]
+    parts.push(
+      <a
+        key={`${match.index}-${url}`}
+        className="terminal-link"
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {url}
+      </a>,
+    )
+    lastIndex = match.index + url.length
+    match = pattern.exec(line)
+  }
+
+  if (lastIndex < line.length) {
+    parts.push(line.slice(lastIndex))
+  }
+
+  return parts.length > 0 ? parts : line
+}
 
 function App() {
   const [currentInput, setCurrentInput] = useState('')
   const [history, setHistory] = useState([])
   const [commandHistory, setCommandHistory] = useState([])
   const [historyIndex, setHistoryIndex] = useState(null)
-  // Current virtual directory for pwd/ls/cd/cat navigation.
-  const [cwd, setCwd] = useState('/')
+  // Start inside the read-only reader home.
+  const [cwd, setCwd] = useState(HOME_PATH)
   const inputRef = useRef(null)
 
-  // Show "~" for home directory to keep the prompt familiar.
-  const promptLabel = useMemo(
-    () => `angelika@cv:${cwd === '/' ? '~' : cwd}$`,
-    [cwd],
-  )
+  const promptLabel = useMemo(() => formatPrompt(cwd), [cwd])
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -32,22 +72,17 @@ function App() {
 
     // Capture cwd before execution so history keeps the original prompt path.
     const cwdBeforeCommand = cwd
-    const promptBeforeCommand =
-      cwdBeforeCommand === '/' ? 'angelika@cv:~$' : `angelika@cv:${cwdBeforeCommand}$`
+    const promptBeforeCommand = formatPrompt(cwdBeforeCommand)
 
-    // Pass navigation context so `cd` can update cwd in this component.
     const result = executeCommand(typed, { cwd: cwdBeforeCommand, setCwd })
 
     if (!result) return
 
-    // Special command actions (e.g. clear)
     if (result.action === 'clear') {
       setHistory([])
       return
     }
 
-    // Silent commands (like successful `cd`) still appear in history,
-    // but may have an empty output array.
     setHistory((prev) => [
       ...prev,
       {
@@ -89,9 +124,10 @@ function App() {
 
     if (event.key === 'Tab') {
       event.preventDefault()
-      const matches = COMMAND_NAMES.filter((name) => name.startsWith(currentInput))
-      if (currentInput && matches.length === 1) {
-        setCurrentInput(matches[0])
+      // Completes command names or path args for ls/cd/cat (single match only).
+      const completed = completeInputLine(currentInput, COMMAND_NAMES, cwd)
+      if (completed) {
+        setCurrentInput(completed)
       }
     }
   }
@@ -100,7 +136,7 @@ function App() {
     <main className="terminal-page">
       <section className="terminal-window" aria-label="Interactive CV terminal">
         <header className="terminal-header">
-          <span className="terminal-title">Terminal - angelika@cv</span>
+          <span className="terminal-title">Terminal - reader@angelika-cv</span>
           <span className="terminal-chrome" aria-hidden="true">
             _ [] X
           </span>
@@ -122,7 +158,7 @@ function App() {
                     key={`${entry.id}-${index}`}
                     className={entry.isError ? 'terminal-output error' : 'terminal-output'}
                   >
-                    {line}
+                    {renderOutputLine(line)}
                   </p>
                 ))}
               </div>
