@@ -1,18 +1,21 @@
-import cv from '../data/cv.json'
+import { formatEducation } from './shared/formatters'
+import { parseArgs } from './shared/parseArgs'
 
 export function educationCommand(args = []) {
-  if (args.length > 0) {
+  const parsed = parseArgs(args)
+  if (parsed.error) {
+    return { output: [parsed.error], isError: true }
+  }
+
+  if (parsed.positional.length > 0 || parsed.shortFlags.size > 0) {
     return {
-      output: ['education does not take arguments. Try: education'],
+      output: ['Usage: education [--lang <code>]'],
       isError: true,
     }
   }
 
-  const lines = ['Education', '---------']
-
-  cv.education.forEach((item) => {
-    lines.push(`${item.institution.padEnd(36)} ${item.period}`)
-  })
-
-  return { output: lines, isError: false }
+  return {
+    output: formatEducation(parsed.lang),
+    isError: false,
+  }
 }

@@ -1,18 +1,22 @@
-import cv from '../data/cv.json'
+import { getLocalizedContent } from './shared/lang'
 
-// the openlink command opens one of the known links in a new browser tab
-// the available link names are derived from cv.json (contact section)
-const LINK_MAP = {
-  github: cv.contact.github,
-  linkedin: cv.contact.linkedin,
-}
-
+/**
+ * openlink: open a known profile URL in a new browser tab.
+ * Link names are derived from the contact section in cv.json.
+ */
 export function openLinkCommand(args = []) {
   if (args.length !== 1) {
     return {
       output: ['Usage: openlink <github|linkedin>'],
       isError: true,
     }
+  }
+
+  // Contact URLs are language-independent; English pack is enough.
+  const contact = getLocalizedContent('en').contact || {}
+  const LINK_MAP = {
+    github: contact.github,
+    linkedin: contact.linkedin,
   }
 
   const key = args[0].toLowerCase()

@@ -7,9 +7,15 @@ function App() {
   const [history, setHistory] = useState([])
   const [commandHistory, setCommandHistory] = useState([])
   const [historyIndex, setHistoryIndex] = useState(null)
+  // Current virtual directory for pwd/ls/cd/cat navigation.
+  const [cwd, setCwd] = useState('/')
   const inputRef = useRef(null)
 
-  const promptLabel = useMemo(() => 'angelika@cv:~$', [])
+  // Show "~" for home directory to keep the prompt familiar.
+  const promptLabel = useMemo(
+    () => `angelika@cv:${cwd === '/' ? '~' : cwd}$`,
+    [cwd],
+  )
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -24,7 +30,13 @@ function App() {
     })
     setHistoryIndex(null)
 
-    const result = executeCommand(typed)
+    // Capture cwd before execution so history keeps the original prompt path.
+    const cwdBeforeCommand = cwd
+    const promptBeforeCommand =
+      cwdBeforeCommand === '/' ? 'angelika@cv:~$' : `angelika@cv:${cwdBeforeCommand}$`
+
+    // Pass navigation context so `cd` can update cwd in this component.
+    const result = executeCommand(typed, { cwd: cwdBeforeCommand, setCwd })
 
     if (!result) return
 
@@ -34,10 +46,13 @@ function App() {
       return
     }
 
+    // Silent commands (like successful `cd`) still appear in history,
+    // but may have an empty output array.
     setHistory((prev) => [
       ...prev,
       {
         id: crypto.randomUUID(),
+        prompt: promptBeforeCommand,
         command: typed,
         output: result.output ?? [],
         isError: result.isError ?? false,
@@ -93,13 +108,13 @@ function App() {
 
         <div className="terminal-body">
           <p className="terminal-line">Welcome to Angelika&apos;s interactive CV terminal.</p>
-          <p className="terminal-line">To see available commands, type "help" and press Enter.</p>
+          <p className="terminal-line">To see available commands, type &quot;help&quot; and press Enter.</p>
 
           <div className="terminal-history" aria-live="polite">
             {history.map((entry) => (
               <div className="history-entry" key={entry.id}>
                 <p className="terminal-prompt-line">
-                  <span className="prompt-label">{promptLabel}</span>{' '}
+                  <span className="prompt-label">{entry.prompt}</span>{' '}
                   <span>{entry.command}</span>
                 </p>
                 {entry.output.map((line, index) => (

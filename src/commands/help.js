@@ -1,21 +1,26 @@
-// values for the help command, which is used to show the available commands and their descriptions
-// add new commands here to make them show up in the help output
-// the idea is to have just a few basic commands for the user to get an overview of the CV (sufficient for HR), and then some more advanced commands for those who want to explore more
+/**
+ * Help content for the interactive CV terminal.
+ * Keep this list aligned with commands registered in index.js.
+ */
+
 const BASIC_COMMANDS = [
   ['help', 'Show available commands'],
-  ['about', 'Show personal introduction'],
-  ['skills', 'Show main technologies and strengths'],
-  ['projects', 'Show projects overview'],
-  ['experience', 'Show work experience'],
-  ['education', 'Show education overview'],
-  ['contact', 'Show the contact information'],
-  ['links', 'Show public profiles and portfolio links'],
+  ['about [--lang <code>]', 'Show personal introduction'],
+  ['skills [--lang <code>]', 'Show main technologies and strengths'],
+  ['projects [--lang <code>]', 'Show projects overview'],
+  ['experience [--lang <code>]', 'Show work experience'],
+  ['education [--lang <code>]', 'Show education overview'],
+  ['contact [--lang <code>]', 'Show the contact information'],
+  ['links [--lang <code>]', 'Show public profiles and portfolio links'],
 ]
 
-// those are basically commands requiring arguments or some knowledge of the command, so it is just for fun for tech people
 const ADVANCED_COMMANDS = [
   ['clear', 'Clear terminal output'],
-  ['openlink <name>', 'Open a link (e.g. openlink github, openlink linkedin)'],
+  ['openlink <name>', 'Open a link (e.g. openlink github)'],
+  ['pwd', 'Print current virtual directory'],
+  ['ls [path] [-a] [-l]', 'List files/directories'],
+  ['cat <path> [--lang <code>]', 'Read a file or section'],
+  ['cd [path]', 'Change virtual directory'],
 ]
 
 export function helpCommand(args = []) {
@@ -26,17 +31,30 @@ export function helpCommand(args = []) {
     }
   }
 
-  // This is what and how is written to the terminal when the user types "help"
   const lines = [
     'Basic commands (clear and easy overview):',
     '----------------------------------------',
-    ...BASIC_COMMANDS.map(([name, desc]) => `  ${name.padEnd(12)} ${desc}`),    // padEnd is used to align the columns - higher number = more space between command and description
+    ...BASIC_COMMANDS.map(([name, desc]) => `  ${name.padEnd(28)} ${desc}`),
     '\n',
     'Advanced commands for geeks:',
     '----------------------------',
-    ...ADVANCED_COMMANDS.map(([name, desc]) => `  ${name.padEnd(16)} ${desc}`),
+    ...ADVANCED_COMMANDS.map(([name, desc]) => `  ${name.padEnd(28)} ${desc}`),
     '\n',
-    '  (More advanced commands coming soon: ls, cat, cd, pwd)',
+    'Language:',
+    '---------',
+    '  Default language is English (en).',
+    '  Use --lang cz to switch one command to Czech.',
+    '  Planned later: fr, de, it.',
+    '\n',
+    'Useful examples:',
+    '----------------',
+    '  ls',
+    '  ls -a experience',
+    '  ls -l projects',
+    '  cat experience/.interesting-fact',
+    '  experience --lang cz',
+    '  cd projects',
+    '  cat dafneapp',
   ]
 
   return { output: lines, isError: false }

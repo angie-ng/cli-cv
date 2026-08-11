@@ -1,24 +1,22 @@
-import cv from '../data/cv.json'
+import { formatAbout } from './shared/formatters'
+import { parseArgs } from './shared/parseArgs'
 
 export function aboutCommand(args = []) {
-  if (args.length > 0) {
+  const parsed = parseArgs(args)
+  if (parsed.error) {
+    return { output: [parsed.error], isError: true }
+  }
+
+  // Direct content commands only accept the optional --lang flag.
+  if (parsed.positional.length > 0 || parsed.shortFlags.size > 0) {
     return {
-      output: ['about does not take arguments. Try: about'],
+      output: ['Usage: about [--lang <code>]'],
       isError: true,
     }
   }
 
-  const { name, title, focus, summary } = cv.profile
-
   return {
-    output: [
-      'About',
-      '-----',
-      `${name} — ${title}`,
-      `Focus: ${focus}`,
-      '\u00A0',
-      summary,
-    ],
+    output: formatAbout(parsed.lang),
     isError: false,
   }
 }

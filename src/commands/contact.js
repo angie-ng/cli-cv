@@ -1,23 +1,21 @@
-import cv from '../data/cv.json'
+import { formatContact } from './shared/formatters'
+import { parseArgs } from './shared/parseArgs'
 
 export function contactCommand(args = []) {
-  if (args.length > 0) {
+  const parsed = parseArgs(args)
+  if (parsed.error) {
+    return { output: [parsed.error], isError: true }
+  }
+
+  if (parsed.positional.length > 0 || parsed.shortFlags.size > 0) {
     return {
-      output: ['contact does not take arguments. Try: contact'],
+      output: ['Usage: contact [--lang <code>]'],
       isError: true,
     }
   }
 
-  const { email, linkedin, github } = cv.contact
-
   return {
-    output: [
-      'Contact',
-      '-------',
-      `Email:    ${email}`,
-      `LinkedIn: ${linkedin}`,
-      `GitHub:   ${github}`,
-    ],
+    output: formatContact(parsed.lang),
     isError: false,
   }
 }

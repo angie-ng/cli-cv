@@ -8,7 +8,15 @@ import { educationCommand } from './education'
 import { contactCommand } from './contact'
 import { linksCommand } from './links'
 import { openLinkCommand } from './open-link'
+import { pwdCommand } from './pwd'
+import { lsCommand } from './ls'
+import { catCommand } from './cat'
+import { cdCommand } from './cd'
 
+/**
+ * Command registry.
+ * Keys are the exact command names users type in the terminal.
+ */
 const COMMANDS = {
   help: helpCommand,
   clear: clearCommand,
@@ -20,11 +28,22 @@ const COMMANDS = {
   contact: contactCommand,
   links: linksCommand,
   openlink: openLinkCommand,
+  // Advanced virtual-navigation commands
+  pwd: pwdCommand,
+  ls: lsCommand,
+  cat: catCommand,
+  cd: cdCommand,
 }
 
 export const COMMAND_NAMES = Object.keys(COMMANDS)
 
-export function executeCommand(rawInput) {
+/**
+ * Execute one command line.
+ * context can include:
+ * - cwd: current virtual directory
+ * - setCwd: function used by `cd` to update cwd in App state
+ */
+export function executeCommand(rawInput, context = {}) {
   const trimmed = rawInput.trim()
   if (!trimmed) return null
 
@@ -39,5 +58,6 @@ export function executeCommand(rawInput) {
     }
   }
 
-  return handler(args)
+  // Pass both args and session context so navigation commands can work.
+  return handler(args, context)
 }

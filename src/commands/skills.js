@@ -1,37 +1,21 @@
-import cv from '../data/cv.json'
+import { formatSkills } from './shared/formatters'
+import { parseArgs } from './shared/parseArgs'
 
 export function skillsCommand(args = []) {
-  if (args.length > 0) {
+  const parsed = parseArgs(args)
+  if (parsed.error) {
+    return { output: [parsed.error], isError: true }
+  }
+
+  if (parsed.positional.length > 0 || parsed.shortFlags.size > 0) {
     return {
-      output: ['skills does not take arguments. Try: skills'],
+      output: ['Usage: skills [--lang <code>]'],
       isError: true,
     }
   }
 
-  const lines = ['Skills', '-----']
-
-  lines.push('Technologies:')
-    cv.skills.technologies.forEach((tech) => {
-      lines.push(`${tech}`)
-  })
-  lines.push('\u00A0')
-
-  lines.push('Tools:')
-    cv.skills.tools.forEach((tool) => {
-      lines.push(`${tool}`)
-  })
-  lines.push('\u00A0')
-  
-  lines.push('Languages:')
-    Object.entries(cv.skills.languages).forEach(([lang, level]) => {
-      lines.push(`${lang.toUpperCase()}: ${level}`)
-  })
-  lines.push('\u00A0')
-  
-  lines.push('Soft skills:')
-    cv.skills.soft_skills.forEach((skill) => {
-      lines.push(`${skill}`)
-  })
-
-  return { output: lines, isError: false }
+  return {
+    output: formatSkills(parsed.lang),
+    isError: false,
+  }
 }

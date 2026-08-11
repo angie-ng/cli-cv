@@ -1,117 +1,295 @@
 {
-  "profile": {
-    "name": "Angelika Viktorinová",
-    "title": "Junior DevOps Engineer",
-    "focus": "Cloud & Linux",
-    "summary": "Aspiring Junior DevOps engineer transitioning into IT through self-directed study. Learning Linux, Git, Docker, CI/CD and cloud deployment via practical labs and personal projects. Highly motivated to learn, take responsibility, and grow in a real-world DevOps environment."
+  "meta": {
+    "defaultLanguage": "en",
+    "supportedLanguages": ["en", "cz"],
+    "plannedLanguages": ["fr", "de", "it"]
   },
-  "contact": {
-    "linkedin": "https://www.linkedin.com/in/angelika-viktorinova/",
-    "email": "angelika.viktorinova@seznam.cz",
-    "github": "https://github.com/angie-ng"
-  },
-  "skills": {
-    "technologies": [
-      "Linux",
-      "Bash",
-      "Docker",
-      "Docker Compose",
-      "Kubernetes",
-      "CI/CD pipelines",
-      "GitHub Actions",
-      "Traefik",
-      "Oracle Cloud",
-      "AWS"
-    ],
-    "tools": [
-      "Git",
-      "Jira",
-      "Grafana",
-      "Splunk"
-    ],
-    "languages": {
-      "cz": "C2",
-      "en": "C1",
-      "fr": "B1",
-      "it": "A2"
-    },
-    "soft_skills": [
-      "Analytical thinking",
-      "Attention to detail",
-      "Persistence",
-      "Communication",
-      "Teamwork"
-    ]
-  },
-  "projects": [
-    {
-      "name": "DafneApp",
-      "type": "Personal DevOps Project",
-      "stack": [
-        "Python",
-        "Flask",
-        "Docker",
-        "Docker Compose",
-        "GitHub Actions",
-        "Traefik",
-        "Oracle Cloud"
+  "content": {
+    "en": {
+      "profile": {
+        "name": "Angelika Viktorinová",
+        "title": "Junior DevOps Engineer",
+        "focus": "Cloud & Linux",
+        "summary": "Aspiring Junior DevOps engineer transitioning into IT through self-directed study. Learning Linux, Git, Docker, CI/CD and cloud deployment via practical labs and personal projects. Highly motivated to learn, take responsibility, and grow in a real-world DevOps environment."
+      },
+      "contact": {
+        "linkedin": "https://www.linkedin.com/in/angelika-viktorinova/",
+        "email": "angelika.viktorinova@seznam.cz",
+        "github": "https://github.com/angie-ng"
+      },
+      "skills": {
+        "technologies": [
+          "Linux",
+          "Bash",
+          "Docker",
+          "Docker Compose",
+          "Kubernetes",
+          "CI/CD pipelines",
+          "GitHub Actions",
+          "Traefik",
+          "Oracle Cloud",
+          "AWS"
+        ],
+        "tools": [
+          "Git",
+          "Jira",
+          "Grafana",
+          "Splunk"
+        ],
+        "languages": {
+          "cz": "C2",
+          "en": "C1",
+          "fr": "B1",
+          "it": "A2"
+        },
+        "soft_skills": [
+          "Analytical thinking",
+          "Attention to detail",
+          "Persistence",
+          "Communication",
+          "Teamwork"
+        ]
+      },
+      "projects": [
+        {
+          "id": "dafneapp",
+          "name": "DafneApp",
+          "type": "Personal DevOps Project",
+          "stack": [
+            "Python",
+            "Flask",
+            "Docker",
+            "Docker Compose",
+            "GitHub Actions",
+            "Traefik",
+            "Oracle Cloud"
+          ],
+          "description": [
+            "End-to-end DevOps workflow implementation",
+            "Containerized Flask application with Docker",
+            "CI/CD pipelines with automated testing, image build and registry push",
+            "Continuous deployment via SSH using custom deploy.sh script",
+            "HTTPS routing and certificate management with Traefik",
+            "Fully automated production deployment on Oracle Cloud"
+          ],
+          "repository": "https://github.com/angie-ng/first-devops-project"
+        },
+        {
+          "id": "self-directed-learning-labs",
+          "name": "Self-Directed Learning Labs",
+          "focus": [
+            "Linux administration",
+            "Containerization",
+            "Kubernetes",
+            "Terraform",
+            "Cloud fundamentals"
+          ],
+          "method": "Online courses and home labs"
+        }
       ],
-      "description": [
-        "End-to-end DevOps workflow implementation",
-        "Containerized Flask application with Docker",
-        "CI/CD pipelines with automated testing, image build and registry push",
-        "Continuous deployment via SSH using custom deploy.sh script",
-        "HTTPS routing and certificate management with Traefik",
-        "Fully automated production deployment on Oracle Cloud"
+      "experience": [
+        {
+          "id": "embedit",
+          "role": "Service Desk Operator",
+          "company": "EmbedIT",
+          "period": "2024",
+          "responsibilities": [
+            "First-line support (ticket creation, classification, assignment, escalation)",
+            "Incident resolution and basic troubleshooting",
+            "Active Directory and IDM access management",
+            "L1 investigation",
+            "DNS configuration",
+            "Monitoring using Grafana and Splunk",
+            "Cooperation with international teams"
+          ]
+        },
+        {
+          "id": "fn-brno",
+          "role": "IT Support / Secretary",
+          "company": "Fakultní nemocnice Brno",
+          "period": "2020–2024",
+          "responsibilities": [
+            "Software and hardware troubleshooting support",
+            "IT process improvements",
+            "Department website administration"
+          ]
+        }
       ],
-      "repository": "https://github.com/angie-ng/first-devops-project"
-    },
-    {
-      "name": "Self-Directed Learning Labs",
-      "focus": [
-        "Linux administration",
-        "Containerization",
-        "Kubernetes",
-        "Terraform",
-        "Cloud fundamentals"
-      ],
-      "method": "Online courses and home labs"
-    }
-  ],
-  "experience": [
-    {
-      "role": "Service Desk Operator",
-      "company": "EmbedIT",
-      "period": "2024",
-      "responsibilities": [
-        "First-line support (ticket creation, classification, assignment, escalation)",
-        "Incident resolution and basic troubleshooting",
-        "Active Directory and IDM access management",
-        "L1 investigation",
-        "DNS configuration",
-        "Monitoring using Grafana and Splunk",
-        "Cooperation with international teams"
+      "education": [
+        {
+          "id": "masaryk-university",
+          "institution": "Masaryk University, Brno",
+          "period": "2008–2015"
+        },
+        {
+          "id": "gymnazium-matyase-lercha",
+          "institution": "Gymnázium Matyáše Lercha, Brno",
+          "period": "2004–2008"
+        }
       ]
     },
-    {
-      "role": "IT Support / Secretary",
-      "company": "Fakultní nemocnice Brno",
-      "period": "2020–2024",
-      "responsibilities": [
-        "Software and hardware troubleshooting support",
-        "IT process improvements",
-        "Department website administration"
+    "cz": {
+      "profile": {
+        "name": "Angelika Viktorinová",
+        "title": "Junior DevOps Engineer",
+        "focus": "Cloud & Linux",
+        "summary": "Aspirující junior DevOps engineer přecházející do IT prostřednictvím samostudia. Učím se Linux, Git, Docker, CI/CD a cloud deployment přes praktické laby a osobní projekty. Jsem silně motivovaná učit se, přebírat odpovědnost a růst v reálném DevOps prostředí."
+      },
+      "contact": {
+        "linkedin": "https://www.linkedin.com/in/angelika-viktorinova/",
+        "email": "angelika.viktorinova@seznam.cz",
+        "github": "https://github.com/angie-ng"
+      },
+      "skills": {
+        "technologies": [
+          "Linux",
+          "Bash",
+          "Docker",
+          "Docker Compose",
+          "Kubernetes",
+          "CI/CD pipelines",
+          "GitHub Actions",
+          "Traefik",
+          "Oracle Cloud",
+          "AWS"
+        ],
+        "tools": [
+          "Git",
+          "Jira",
+          "Grafana",
+          "Splunk"
+        ],
+        "languages": {
+          "cz": "C2",
+          "en": "C1",
+          "fr": "B1",
+          "it": "A2"
+        },
+        "soft_skills": [
+          "Analytické myšlení",
+          "Pozornost k detailu",
+          "Vytrvalost",
+          "Komunikace",
+          "Týmová spolupráce"
+        ]
+      },
+      "projects": [
+        {
+          "id": "dafneapp",
+          "name": "DafneApp",
+          "type": "Osobní DevOps projekt",
+          "stack": [
+            "Python",
+            "Flask",
+            "Docker",
+            "Docker Compose",
+            "GitHub Actions",
+            "Traefik",
+            "Oracle Cloud"
+          ],
+          "description": [
+            "Implementace end-to-end DevOps workflow",
+            "Kontejnerizace Flask aplikace pomocí Dockeru",
+            "CI/CD pipeline s automatickými testy, buildem image a push do registry",
+            "Continuous deployment přes SSH pomocí vlastního skriptu deploy.sh",
+            "HTTPS routing a správa certifikátů pomocí Traefiku",
+            "Plně automatizované produkční nasazení na Oracle Cloud"
+          ],
+          "repository": "https://github.com/angie-ng/first-devops-project"
+        },
+        {
+          "id": "self-directed-learning-labs",
+          "name": "Samostatné vzdělávací laby",
+          "focus": [
+            "Administrace Linuxu",
+            "Kontejnerizace",
+            "Kubernetes",
+            "Terraform",
+            "Základy cloudu"
+          ],
+          "method": "Online kurzy a domácí laby"
+        }
+      ],
+      "experience": [
+        {
+          "id": "embedit",
+          "role": "Service Desk Operator",
+          "company": "EmbedIT",
+          "period": "2024",
+          "responsibilities": [
+            "First-line support (založení ticketu, klasifikace, přiřazení, eskalace)",
+            "Řešení incidentů a základní troubleshooting",
+            "Správa přístupů přes Active Directory a IDM",
+            "L1 investigation",
+            "Konfigurace DNS",
+            "Monitoring pomocí Grafana a Splunk",
+            "Spolupráce s mezinárodními týmy"
+          ]
+        },
+        {
+          "id": "fn-brno",
+          "role": "IT Support / Sekretářka",
+          "company": "Fakultní nemocnice Brno",
+          "period": "2020–2024",
+          "responsibilities": [
+            "Podpora při řešení softwarových a hardwarových problémů",
+            "Zlepšování IT procesů",
+            "Správa webových stránek oddělení"
+          ]
+        }
+      ],
+      "education": [
+        {
+          "id": "masaryk-university",
+          "institution": "Masarykova univerzita, Brno",
+          "period": "2008–2015"
+        },
+        {
+          "id": "gymnazium-matyase-lercha",
+          "institution": "Gymnázium Matyáše Lercha, Brno",
+          "period": "2004–2008"
+        }
       ]
     }
-  ],
-  "education": [
-    {
-      "institution": "Masaryk University, Brno",
-      "period": "2008–2015"
+  },
+  "hidden": {
+    "experience": {
+      ".interesting-fact": {
+        "en": [
+          "Hidden note:",
+          "I like languages and attend polyglot conferences.",
+          "I also sing in my own vocal ensemble focused on early music."
+        ],
+        "cz": [
+          "Skrytá poznámka:",
+          "Mám ráda jazyky a chodím na polyglotské konference.",
+          "Zpívám také ve vlastním vokálním souboru zaměřeném na starou hudbu."
+        ]
+      }
     },
-    {
-      "institution": "Gymnázium Matyáše Lercha, Brno",
-      "period": "2004–2008"
+    "projects": {
+      ".interesting-fact": {
+        "en": [
+          "Hidden note:",
+          "DafneApp started as a learning playground and grew into a full CI/CD + cloud deployment pipeline."
+        ],
+        "cz": [
+          "Skrytá poznámka:",
+          "DafneApp začal jako cvičné prostředí a vyrostl v kompletní CI/CD + cloud deployment pipeline."
+        ]
+      }
+    },
+    "education": {
+      ".interesting-fact": {
+        "en": [
+          "Hidden note:",
+          "Outside IT I also play badminton and table tennis."
+        ],
+        "cz": [
+          "Skrytá poznámka:",
+          "Mimo IT hraju také badminton a stolní tenis."
+        ]
+      }
     }
-  ]
+  }
 }
