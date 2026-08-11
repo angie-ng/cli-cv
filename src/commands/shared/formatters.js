@@ -28,26 +28,47 @@ export function formatAbout(lang = DEFAULT_LANGUAGE) {
 }
 
 export function formatSkills(lang = DEFAULT_LANGUAGE) {
-  const skills = getLocalizedContent(lang).skills || {}
   const lines = ['Skills', '------']
 
-  lines.push('Technologies:')
+  lines.push(...formatSkillsTechnologies(lang))
+  lines.push('\u00A0')
+  lines.push(...formatSkillsTools(lang))
+  lines.push('\u00A0')
+  lines.push(...formatSkillsLanguages(lang))
+  lines.push('\u00A0')
+  lines.push(...formatSkillsSoftSkills(lang))
+
+  return lines
+}
+
+/** One skills category as a standalone file for the skills/ directory. */
+export function formatSkillsTechnologies(lang = DEFAULT_LANGUAGE) {
+  const skills = getLocalizedContent(lang).skills || {}
+  const lines = ['Technologies', '------------']
   ;(skills.technologies || []).forEach((tech) => lines.push(tech))
-  lines.push('\u00A0')
+  return lines
+}
 
-  lines.push('Tools:')
+export function formatSkillsTools(lang = DEFAULT_LANGUAGE) {
+  const skills = getLocalizedContent(lang).skills || {}
+  const lines = ['Tools', '-----']
   ;(skills.tools || []).forEach((tool) => lines.push(tool))
-  lines.push('\u00A0')
+  return lines
+}
 
-  lines.push('Languages:')
+export function formatSkillsLanguages(lang = DEFAULT_LANGUAGE) {
+  const skills = getLocalizedContent(lang).skills || {}
+  const lines = ['Languages', '---------']
   Object.entries(skills.languages || {}).forEach(([code, level]) => {
     lines.push(`${code.toUpperCase()}: ${level}`)
   })
-  lines.push('\u00A0')
+  return lines
+}
 
-  lines.push('Soft skills:')
+export function formatSkillsSoftSkills(lang = DEFAULT_LANGUAGE) {
+  const skills = getLocalizedContent(lang).skills || {}
+  const lines = ['Soft skills', '-----------']
   ;(skills.soft_skills || []).forEach((skill) => lines.push(skill))
-
   return lines
 }
 

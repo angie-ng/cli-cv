@@ -3,7 +3,6 @@ import {
   formatAbout,
   formatContact,
   formatEducation,
-  formatEducationEntry,
   formatExperience,
   formatExperienceEntry,
   formatHiddenFile,
@@ -11,38 +10,72 @@ import {
   formatProjectEntry,
   formatProjects,
   formatSkills,
+  formatSkillsLanguages,
+  formatSkillsSoftSkills,
+  formatSkillsTechnologies,
+  formatSkillsTools,
 } from './formatters'
 
 /**
  * Virtual filesystem (VFS) for the interactive CV.
  *
- * Mental model:
- * - "/" is the home directory
- * - Simple sections are files: about, skills, contact, links
- * - Multi-entry sections are directories: experience, projects, education
- * - Dot-prefixed names are hidden files (shown only by `ls -a`)
+ * Layout:
+ *   /                       system root
+ *   /home/reader/           default home (read-only viewer)
+ *     about, contact, links, education   (files)
+ *     skills/, experience/, projects/    (directories)
  *
- * Important UX rule:
- * We never expose an "index" filename to users.
- * Typing `cat experience` reads the whole section content directly.
+ * Dot-prefixed names are hidden (shown only by `ls -a`).
+ * Section directories can be `cat`-ed to show a full overview
+ * without exposing any internal "index" filename.
  */
 
-function createFile(name, getContent, summary = '') {
+/** Default starting directory for the terminal session. */
+export const HOME_PATH = '/home/reader'
+
+/**
+ * Shown when the reader tries to leave their home jail
+ * (e.g. /, /home, /home/david, ../.. from ~).
+ */
+export const OUT_OF_SCOPE_MESSAGE =
+  "Nice try. That path is out of scope with 'reader' privileges. Stay in your directory, please, and don't try to hack me :D"
+
+/** Fake ownership shown by `ls -l`. */
+export const FS_OWNER = 'angelika'
+export const FS_GROUP = 'reader'
+
+/**
+ * True only for /home/reader and paths under it.
+ * Used as a soft jail for cd / ls / cat / Tab completion.
+ */
+export function isWithinHome(absPath) {
+  return absPath === HOME_PATH || absPath.startsWith(`${HOME_PATH}/`)
+}
+
+/**
+ * Fixed timestamp for listings.
+ * Kept constant on purpose so the CV does not look "stale" as real dates pass.
+ */
+export const FS_MTIME = 'Aug 12 12:00'
+
+function createFile(name, getContent, summary = '', size = 256) {
   return {
     type: 'file',
     name,
-    // True when the file name starts with a dot (Unix-like hidden file).
     hidden: name.startsWith('.'),
     summary,
+    size,
     getContent,
   }
 }
 
-function createDir(name, children = {}) {
+function createDir(name, children = {}, summary = '', size = 4096) {
   return {
     type: 'dir',
     name,
     hidden: name.startsWith('.'),
+    summary,
+    size,
     children,
   }
 }
@@ -54,81 +87,113 @@ function createDir(name, children = {}) {
 export function buildVfs(lang = DEFAULT_LANGUAGE) {
   const content = getLocalizedContent(lang)
 
+  // --- experience/ ---
   const experienceChildren = {}
   ;(content.experience || []).forEach((item) => {
     experienceChildren[item.id] = createFile(
       item.id,
       () => formatExperienceEntry(item.id, lang),
       `${item.role} @ ${item.company}`,
+      512,
     )
   })
   experienceChildren['.interesting-fact'] = createFile(
     '.interesting-fact',
     () => formatHiddenFile('experience', '.interesting-fact', lang),
     'Hidden experience note',
+    128,
   )
 
+  const experienceDir = createDir(
+    'experience',
+    experienceChildren,
+    'Work experience directory',
+  )
+  experienceDir.getContent = () => formatExperience(lang)
+
+  // --- projects/ ---
   const projectChildren = {}
   ;(content.projects || []).forEach((item) => {
     projectChildren[item.id] = createFile(
       item.id,
       () => formatProjectEntry(item.id, lang),
       item.name,
+      512,
     )
   })
   projectChildren['.interesting-fact'] = createFile(
     '.interesting-fact',
     () => formatHiddenFile('projects', '.interesting-fact', lang),
     'Hidden project note',
+    128,
   )
 
-  const educationChildren = {}
-  ;(content.education || []).forEach((item) => {
-    educationChildren[item.id] = createFile(
-      item.id,
-      () => formatEducationEntry(item.id, lang),
-      item.institution,
-    )
-  })
-  educationChildren['.interesting-fact'] = createFile(
-    '.interesting-fact',
-    () => formatHiddenFile('education', '.interesting-fact', lang),
-    'Hidden education note',
-  )
-
-  // Directory nodes also expose getContent so `cat experience` works
-  // without forcing users to know any internal file name.
-  const experienceDir = createDir('experience', experienceChildren)
-  experienceDir.getContent = () => formatExperience(lang)
-  experienceDir.summary = 'Work experience directory'
-
-  const projectsDir = createDir('projects', projectChildren)
+  const projectsDir = createDir('projects', projectChildren, 'Projects directory')
   projectsDir.getContent = () => formatProjects(lang)
-  projectsDir.summary = 'Projects directory'
 
-  const educationDir = createDir('education', educationChildren)
-  educationDir.getContent = () => formatEducation(lang)
-  educationDir.summary = 'Education directory'
+  // --- skills/ (directory with category files) ---
+  const skillsChildren = {
+    technologies: createFile(
+      'technologies',
+      () => formatSkillsTechnologies(lang),
+      'Technology list',
+      256,
+    ),
+    tools: createFile(
+      'tools',
+      () => formatSkillsTools(lang),
+      'Tools list',
+      128,
+    ),
+    languages: createFile(
+      'languages',
+      () => formatSkillsLanguages(lang),
+      'Spoken languages',
+      128,
+    ),
+    soft_skills: createFile(
+      'soft_skills',
+      () => formatSkillsSoftSkills(lang),
+      'Soft skills list',
+      128,
+    ),
+    '.interesting-fact': createFile(
+      '.interesting-fact',
+      () => formatHiddenFile('skills', '.interesting-fact', lang),
+      'Hidden skills note',
+      128,
+    ),
+  }
 
-  return createDir('/', {
-    about: createFile('about', () => formatAbout(lang), 'Personal introduction'),
-    skills: createFile('skills', () => formatSkills(lang), 'Technologies and strengths'),
-    contact: createFile('contact', () => formatContact(lang), 'Contact information'),
-    links: createFile('links', () => formatLinks(lang), 'Public profile links'),
+  const skillsDir = createDir('skills', skillsChildren, 'Skills directory')
+  skillsDir.getContent = () => formatSkills(lang)
+
+  // Reader home contains the CV content visitors explore.
+  const readerHome = createDir('reader', {
+    about: createFile('about', () => formatAbout(lang), 'Personal introduction', 512),
+    contact: createFile('contact', () => formatContact(lang), 'Contact information', 256),
+    links: createFile('links', () => formatLinks(lang), 'Public profile links', 256),
+    // education is intentionally a single file (small section).
+    education: createFile('education', () => formatEducation(lang), 'Education overview', 256),
+    skills: skillsDir,
     experience: experienceDir,
     projects: projectsDir,
-    education: educationDir,
-  })
+  }, 'Reader home (read-only CV workspace)')
+
+  const homeDir = createDir('home', {
+    reader: readerHome,
+  }, 'Home directories')
+
+  return createDir('/', {
+    home: homeDir,
+  }, 'Filesystem root')
 }
 
 /**
- * Normalize path input into a clean absolute path like "/projects/dafneapp".
- * Supports:
- * - absolute paths: "/education"
- * - relative paths: "dafneapp" (resolved from cwd)
- * - "." and ".."
+ * Normalize path input into a clean absolute path.
+ * Supports absolute paths, relative paths, "." and "..".
  */
-export function resolvePath(cwd = '/', inputPath = '.') {
+export function resolvePath(cwd = HOME_PATH, inputPath = '.') {
   const base = inputPath.startsWith('/') ? [] : cwd.split('/').filter(Boolean)
   const parts = inputPath.split('/').filter((part) => part.length > 0)
 
@@ -167,7 +232,7 @@ export function getNodeAtPath(absPath, lang = DEFAULT_LANGUAGE) {
 
 /**
  * List children of a directory node.
- * By default, hidden (dot) files are excluded unless includeHidden=true.
+ * Hidden (dot) files are excluded unless includeHidden=true.
  */
 export function listDir(node, { includeHidden = false } = {}) {
   if (!node || node.type !== 'dir') return []
@@ -175,4 +240,57 @@ export function listDir(node, { includeHidden = false } = {}) {
   return Object.values(node.children || {})
     .filter((child) => includeHidden || !child.hidden)
     .sort((a, b) => a.name.localeCompare(b.name))
+}
+
+/**
+ * Build path completion candidates for Tab.
+ * - Completes the last path segment under the resolved parent directory.
+ * - dirsOnly=true is used by `cd` (directories only).
+ */
+export function getPathCompletions(pathPrefix, cwd = HOME_PATH, { dirsOnly = false, lang = DEFAULT_LANGUAGE } = {}) {
+  const endsWithSlash = pathPrefix.endsWith('/')
+  const absPrefix = resolvePath(cwd, pathPrefix || '.')
+
+  let parentPath
+  let partial
+
+  if (endsWithSlash || pathPrefix === '') {
+    parentPath = pathPrefix === '' ? cwd : absPrefix
+    partial = ''
+  } else {
+    const slashIndex = pathPrefix.lastIndexOf('/')
+    if (slashIndex === -1) {
+      parentPath = cwd
+      partial = pathPrefix
+    } else {
+      const parentInput = pathPrefix.slice(0, slashIndex + 1)
+      parentPath = resolvePath(cwd, parentInput || '/')
+      partial = pathPrefix.slice(slashIndex + 1)
+    }
+  }
+
+  if (!isWithinHome(parentPath)) {
+    return []
+  }
+
+  const parentNode = getNodeAtPath(parentPath, lang)
+  if (!parentNode || parentNode.type !== 'dir') {
+    return []
+  }
+
+  // For completion we include hidden names when the user already typed ".".
+  const includeHidden = partial.startsWith('.')
+  const children = listDir(parentNode, { includeHidden: true })
+    .filter((child) => includeHidden || !child.hidden)
+    .filter((child) => !dirsOnly || child.type === 'dir')
+    .filter((child) => child.name.startsWith(partial))
+
+  const parentPrefix = endsWithSlash
+    ? pathPrefix
+    : pathPrefix.slice(0, pathPrefix.length - partial.length)
+
+  return children.map((child) => {
+    const completed = `${parentPrefix}${child.name}`
+    return child.type === 'dir' ? `${completed}/` : completed
+  })
 }

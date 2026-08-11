@@ -1,16 +1,15 @@
 import { parseArgs } from './shared/parseArgs'
-import { getNodeAtPath, resolvePath } from './shared/vfs'
+import {
+  HOME_PATH,
+  OUT_OF_SCOPE_MESSAGE,
+  getNodeAtPath,
+  isWithinHome,
+  resolvePath,
+} from './shared/vfs'
 
 /**
  * cd: change the current virtual directory.
- *
- * Supported targets:
- * - cd /            go to home
- * - cd ..           go one level up
- * - cd projects     go into a section directory
- * - cd /education   absolute path
- *
- * Without arguments, cd goes home ("/").
+ * Stays inside /home/reader (reader jail).
  */
 export function cdCommand(args = [], context = {}) {
   const parsed = parseArgs(args)
@@ -32,8 +31,17 @@ export function cdCommand(args = [], context = {}) {
     }
   }
 
-  const cwd = context.cwd || '/'
-  const targetPath = resolvePath(cwd, parsed.positional[0] || '/')
+  const cwd = context.cwd || HOME_PATH
+  // No argument => go home (like many shells with just `cd`).
+  const targetPath = resolvePath(cwd, parsed.positional[0] || HOME_PATH)
+
+  if (!isWithinHome(targetPath)) {
+    return {
+      output: [OUT_OF_SCOPE_MESSAGE],
+      isError: true,
+    }
+  }
+
   const node = getNodeAtPath(targetPath, parsed.lang)
 
   if (!node) {
@@ -43,7 +51,6 @@ export function cdCommand(args = [], context = {}) {
     }
   }
 
-  // Only directories are valid cd targets.
   if (node.type !== 'dir') {
     return {
       output: [`cd: not a directory: ${targetPath}`],
@@ -51,12 +58,10 @@ export function cdCommand(args = [], context = {}) {
     }
   }
 
-  // Update session cwd through the context provided by App.jsx.
   if (typeof context.setCwd === 'function') {
     context.setCwd(targetPath)
   }
 
-  // Silent success, like a real shell.
   return {
     output: [],
     isError: false,

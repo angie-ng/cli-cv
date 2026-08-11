@@ -1,19 +1,15 @@
 import { parseArgs } from './shared/parseArgs'
-import { getNodeAtPath, resolvePath } from './shared/vfs'
+import {
+  HOME_PATH,
+  OUT_OF_SCOPE_MESSAGE,
+  getNodeAtPath,
+  isWithinHome,
+  resolvePath,
+} from './shared/vfs'
 
 /**
  * cat: print the content of a virtual file (or section directory).
- *
- * Examples:
- *   cat about
- *   cat experience
- *   cat /projects/dafneapp
- *   cat experience/.interesting-fact --lang cz
- *
- * Notes:
- * - Works for both visible and hidden (dot) files.
- * - For section directories (experience/projects/education), cat prints
- *   the full section overview. Users never need an "index" file name.
+ * Paths outside /home/reader are blocked (reader jail).
  */
 export function catCommand(args = [], context = {}) {
   const parsed = parseArgs(args)
@@ -35,8 +31,16 @@ export function catCommand(args = [], context = {}) {
     }
   }
 
-  const cwd = context.cwd || '/'
+  const cwd = context.cwd || HOME_PATH
   const targetPath = resolvePath(cwd, parsed.positional[0])
+
+  if (!isWithinHome(targetPath)) {
+    return {
+      output: [OUT_OF_SCOPE_MESSAGE],
+      isError: true,
+    }
+  }
+
   const node = getNodeAtPath(targetPath, parsed.lang)
 
   if (!node) {
