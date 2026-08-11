@@ -81,6 +81,20 @@
   color: #ff8b8b;
 }
 
+.terminal-link {
+  color: #7ec8ff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.terminal-link:hover {
+  color: #a8dcff;
+}
+
+.terminal-output.error .terminal-link {
+  color: #ffb4b4;
+}
+
 .terminal-prompt {
   display: flex;
   align-items: center;

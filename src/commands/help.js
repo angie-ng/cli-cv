@@ -1,25 +1,28 @@
 /**
  * Help content for the interactive CV terminal.
  * Keep this list aligned with commands registered in index.js.
+ *
+ * Basic commands stay simple for any visitor.
+ * Language flags and navigation details stay in Advanced (geek mode).
  */
 
 const BASIC_COMMANDS = [
   ['help', 'Show available commands'],
-  ['about [--lang <code>]', 'Show personal introduction'],
-  ['skills [--lang <code>]', 'Show main technologies and strengths'],
-  ['projects [--lang <code>]', 'Show projects overview'],
-  ['experience [--lang <code>]', 'Show work experience'],
-  ['education [--lang <code>]', 'Show education overview'],
-  ['contact [--lang <code>]', 'Show the contact information'],
-  ['links [--lang <code>]', 'Show public profiles and portfolio links'],
+  ['about', 'Show personal introduction'],
+  ['skills', 'Show main technologies and strengths'],
+  ['projects', 'Show projects overview'],
+  ['experience', 'Show work experience'],
+  ['education', 'Show education overview'],
+  ['contact', 'Show the contact information'],
+  ['links', 'Show public profiles and portfolio links'],
 ]
 
 const ADVANCED_COMMANDS = [
   ['clear', 'Clear terminal output'],
-  ['openlink <name>', 'Open a link (e.g. openlink github)'],
+  ['openlink [name|url]', 'Open a link (e.g. openlink linkedin)'],
   ['pwd', 'Print current virtual directory'],
   ['ls [path] [-a] [-l]', 'List files/directories'],
-  ['cat <path> [--lang <code>]', 'Read a file or section'],
+  ['cat <path> [--lang <code>]', 'Read a file or section (e.g. cat about --lang cz)'],
   ['cd [path]', 'Change virtual directory'],
 ]
 
@@ -40,21 +43,11 @@ export function helpCommand(args = []) {
     '----------------------------',
     ...ADVANCED_COMMANDS.map(([name, desc]) => `  ${name.padEnd(28)} ${desc}`),
     '\n',
-    'Language:',
-    '---------',
+    'Language (advanced):',
+    '--------------------',
     '  Default language is English (en).',
-    '  Use --lang cz to switch one command to Czech.',
+    '  Use --lang cz on content commands (e.g. cat about --lang cz).',
     '  Planned later: fr, de, it.',
-    '\n',
-    'Useful examples:',
-    '----------------',
-    '  ls',
-    '  ls -a experience',
-    '  ls -l projects',
-    '  cat experience/.interesting-fact',
-    '  experience --lang cz',
-    '  cd projects',
-    '  cat dafneapp',
   ]
 
   return { output: lines, isError: false }
