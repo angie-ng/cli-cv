@@ -12,6 +12,7 @@ import { pwdCommand } from './pwd'
 import { lsCommand } from './ls'
 import { catCommand } from './cat'
 import { cdCommand } from './cd'
+import { rmCommand } from './rm'
 
 /**
  * Command registry.
@@ -33,6 +34,8 @@ const COMMANDS = {
   ls: lsCommand,
   cat: catCommand,
   cd: cdCommand,
+  rm: rmCommand,
+  rmdir: rmCommand,
 }
 
 export const COMMAND_NAMES = Object.keys(COMMANDS)

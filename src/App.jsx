@@ -87,6 +87,16 @@ function renderOutputLine(line) {
   return parts.length > 0 ? parts : line
 }
 
+function outputLineText(line) {
+  return typeof line === 'object' && line !== null ? line.text : line
+}
+
+function outputLineIsError(line, entryIsError) {
+  return typeof line === 'object' && line !== null && 'isError' in line
+    ? Boolean(line.isError)
+    : entryIsError
+}
+
 function App() {
   const [currentInput, setCurrentInput] = useState('')
   const [history, setHistory] = useState([])
@@ -99,6 +109,7 @@ function App() {
   const inputRef = useRef(null)
   const bodyRef = useRef(null)
   const resizeRef = useRef(null)
+  const delayedTimersRef = useRef({ ids: [] })
 
   const promptLabel = useMemo(() => formatPrompt(cwd), [cwd])
 
@@ -116,6 +127,13 @@ function App() {
   useLayoutEffect(() => {
     scrollToBottom()
   }, [history])
+
+  useEffect(() => {
+    const timers = delayedTimersRef.current
+    return () => {
+      timers.ids.forEach((timer) => clearTimeout(timer))
+    }
+  }, [])
 
   useEffect(() => {
     const onResize = () => {
@@ -181,6 +199,42 @@ function App() {
 
     if (result.action === 'clear') {
       setHistory([])
+      return
+    }
+
+    if (result.action === 'delayed') {
+      const entryId = crypto.randomUUID()
+      setHistory((prev) => [
+        ...prev,
+        {
+          id: entryId,
+          prompt: promptBeforeCommand,
+          command: typed,
+          output: [],
+          isError: false,
+        },
+      ])
+
+      let waitMs = 0
+      ;(result.steps ?? []).forEach((step) => {
+        waitMs += step.delayMs ?? 0
+        const timer = setTimeout(() => {
+          setHistory((prev) =>
+            prev.map((entry) =>
+              entry.id === entryId
+                ? {
+                    ...entry,
+                    output: [
+                      ...entry.output,
+                      { text: step.text, isError: step.isError },
+                    ],
+                  }
+                : entry,
+            ),
+          )
+        }, waitMs)
+        delayedTimersRef.current.ids.push(timer)
+      })
       return
     }
 
@@ -301,9 +355,13 @@ function App() {
                 {entry.output.map((line, index) => (
                   <p
                     key={`${entry.id}-${index}`}
-                    className={entry.isError ? 'terminal-output error' : 'terminal-output'}
+                    className={
+                      outputLineIsError(line, entry.isError)
+                        ? 'terminal-output error'
+                        : 'terminal-output'
+                    }
                   >
-                    {renderOutputLine(line)}
+                    {renderOutputLine(outputLineText(line))}
                   </p>
                 ))}
               </div>

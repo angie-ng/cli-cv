@@ -23,7 +23,7 @@ const ADVANCED_COMMANDS = [
   ['clear', 'Clear terminal output'],
   ['openlink [name|url]', 'Open a link (e.g. openlink linkedin)'],
   ['pwd', 'Print current virtual directory'],
-  ['ls [path] [-a] [-l]', 'List files/directories'],
+  ['ls [path] [-l]', 'List files/directories'],
   ['cat <path> [--lang <code>]', 'Read a file or section (e.g. cat about --lang cz)'],
   ['cd [path]', 'Change virtual directory'],
 ]
