@@ -91,10 +91,13 @@ function outputLineText(line) {
   return typeof line === 'object' && line !== null ? line.text : line
 }
 
-function outputLineIsError(line, entryIsError) {
-  return typeof line === 'object' && line !== null && 'isError' in line
-    ? Boolean(line.isError)
-    : entryIsError
+function outputLineClassName(line, entryIsError) {
+  if (typeof line === 'object' && line !== null) {
+    if (line.isError) return 'terminal-output error'
+    if (line.kind === 'title') return 'terminal-output is-title'
+    if (line.kind === 'role') return 'terminal-output is-role'
+  }
+  return entryIsError ? 'terminal-output error' : 'terminal-output'
 }
 
 function App() {
@@ -355,11 +358,7 @@ function App() {
                 {entry.output.map((line, index) => (
                   <p
                     key={`${entry.id}-${index}`}
-                    className={
-                      outputLineIsError(line, entry.isError)
-                        ? 'terminal-output error'
-                        : 'terminal-output'
-                    }
+                    className={outputLineClassName(line, entry.isError)}
                   >
                     {renderOutputLine(outputLineText(line))}
                   </p>

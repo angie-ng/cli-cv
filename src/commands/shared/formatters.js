@@ -35,8 +35,27 @@ function getUi(lang) {
   return { ...UI_FALLBACK, ...(getLocalizedContent(lang).ui || {}) }
 }
 
-function sectionHeading(title) {
-  return [title, '-'.repeat(title.length)]
+const LANG_TO_LOCALE = { cz: 'cs', en: 'en', fr: 'fr', de: 'de', it: 'it' }
+
+function sectionHeading(title, lang = DEFAULT_LANGUAGE) {
+  const locale = LANG_TO_LOCALE[lang] || lang
+  const heading = title.toLocaleUpperCase(locale)
+  return [
+    { text: heading, kind: 'title' },
+    { text: '-'.repeat(heading.length), kind: 'title' },
+  ]
+}
+
+function subHeading(title) {
+  return { text: title, kind: 'role' }
+}
+
+function labeled(label, value) {
+  return `${label}: ${value}`
+}
+
+function labelOnly(label) {
+  return `${label}:`
 }
 
 function trimTrailingSpacer(lines) {
@@ -50,30 +69,30 @@ function formatProjectFields(project, ui) {
   const lines = []
 
   if (project.type) {
-    lines.push(`${ui.type}: ${project.type}`)
+    lines.push(labeled(ui.type, project.type))
   }
 
   if (project.description) {
-    lines.push(`${ui.description}:`)
+    lines.push(labelOnly(ui.description))
     project.description.forEach((desc) => lines.push(`  • ${desc}`))
   }
 
   if (project.stack) {
-    lines.push(`${ui.stack}:`)
+    lines.push(labelOnly(ui.stack))
     project.stack.forEach((tech) => lines.push(`  • ${tech}`))
   }
 
   if (project.focus) {
-    lines.push(`${ui.focus}:`)
+    lines.push(labelOnly(ui.focus))
     project.focus.forEach((item) => lines.push(`  • ${item}`))
   }
 
   if (project.method) {
-    lines.push(`${ui.method}: ${project.method}`)
+    lines.push(labeled(ui.method, project.method))
   }
 
   if (project.repository) {
-    lines.push(`${ui.link}: ${project.repository}`)
+    lines.push(labeled(ui.link, project.repository))
   }
 
   return lines
@@ -84,9 +103,9 @@ export function formatAbout(lang = DEFAULT_LANGUAGE) {
   const ui = getUi(lang)
 
   return [
-    ...sectionHeading(ui.about),
-    `${name} — ${title}`,
-    `${ui.focus}: ${focus}`,
+    ...sectionHeading(ui.about, lang),
+    { text: `${name} — ${title}`, kind: 'role' },
+    labeled(ui.focus, focus),
     '\u00A0',
     summary,
   ]
@@ -94,7 +113,7 @@ export function formatAbout(lang = DEFAULT_LANGUAGE) {
 
 export function formatSkills(lang = DEFAULT_LANGUAGE) {
   const ui = getUi(lang)
-  const lines = [...sectionHeading(ui.skills)]
+  const lines = [...sectionHeading(ui.skills, lang)]
 
   lines.push(...formatSkillsTechnologies(lang))
   lines.push('\u00A0')
@@ -111,7 +130,7 @@ export function formatSkills(lang = DEFAULT_LANGUAGE) {
 export function formatSkillsTechnologies(lang = DEFAULT_LANGUAGE) {
   const skills = getLocalizedContent(lang).skills || {}
   const ui = getUi(lang)
-  const lines = [...sectionHeading(ui.technologies)]
+  const lines = [subHeading(ui.technologies)]
   ;(skills.technologies || []).forEach((tech) => lines.push(tech))
   return lines
 }
@@ -119,7 +138,7 @@ export function formatSkillsTechnologies(lang = DEFAULT_LANGUAGE) {
 export function formatSkillsTools(lang = DEFAULT_LANGUAGE) {
   const skills = getLocalizedContent(lang).skills || {}
   const ui = getUi(lang)
-  const lines = [...sectionHeading(ui.tools)]
+  const lines = [subHeading(ui.tools)]
   ;(skills.tools || []).forEach((tool) => lines.push(tool))
   return lines
 }
@@ -127,7 +146,7 @@ export function formatSkillsTools(lang = DEFAULT_LANGUAGE) {
 export function formatSkillsLanguages(lang = DEFAULT_LANGUAGE) {
   const skills = getLocalizedContent(lang).skills || {}
   const ui = getUi(lang)
-  const lines = [...sectionHeading(ui.languages)]
+  const lines = [subHeading(ui.languages)]
   Object.entries(skills.languages || {}).forEach(([code, level]) => {
     lines.push(`${code.toUpperCase()}: ${level}`)
   })
@@ -137,7 +156,7 @@ export function formatSkillsLanguages(lang = DEFAULT_LANGUAGE) {
 export function formatSkillsSoftSkills(lang = DEFAULT_LANGUAGE) {
   const skills = getLocalizedContent(lang).skills || {}
   const ui = getUi(lang)
-  const lines = [...sectionHeading(ui.softSkills)]
+  const lines = [subHeading(ui.softSkills)]
   ;(skills.soft_skills || []).forEach((skill) => lines.push(skill))
   return lines
 }
@@ -147,10 +166,10 @@ export function formatContact(lang = DEFAULT_LANGUAGE) {
   const ui = getUi(lang)
 
   return [
-    ...sectionHeading(ui.contact),
-    `${ui.email}: ${email}`,
-    `${ui.linkedin}: ${linkedin}`,
-    `${ui.github}: ${github}`,
+    ...sectionHeading(ui.contact, lang),
+    labeled(ui.email, email),
+    labeled(ui.linkedin, linkedin),
+    labeled(ui.github, github),
   ]
 }
 
@@ -159,19 +178,22 @@ export function formatLinks(lang = DEFAULT_LANGUAGE) {
   const ui = getUi(lang)
 
   return [
-    ...sectionHeading(ui.links),
-    `${ui.github}: ${github}`,
-    `${ui.linkedin}: ${linkedin}`,
+    ...sectionHeading(ui.links, lang),
+    labeled(ui.github, github),
+    labeled(ui.linkedin, linkedin),
   ]
 }
 
 export function formatExperience(lang = DEFAULT_LANGUAGE) {
   const experience = getLocalizedContent(lang).experience || []
   const ui = getUi(lang)
-  const lines = [...sectionHeading(ui.experience)]
+  const lines = [...sectionHeading(ui.experience, lang)]
 
   experience.forEach((item) => {
-    lines.push(`${item.role.padEnd(26)} ${item.company.padEnd(26)} ${item.period}`)
+    lines.push({
+      text: `${item.role.padEnd(26)} ${item.company.padEnd(26)} ${item.period}`,
+      kind: 'role',
+    })
     ;(item.responsibilities || []).forEach((resp) => {
       lines.push(`  • ${resp}`)
     })
@@ -188,8 +210,8 @@ export function formatExperienceEntry(entryId, lang = DEFAULT_LANGUAGE) {
 
   const ui = getUi(lang)
   const lines = [
-    `${item.role} @ ${item.company}`,
-    `${ui.period}: ${item.period}`,
+    { text: `${item.role} @ ${item.company}`, kind: 'role' },
+    labeled(ui.period, item.period),
     '\u00A0',
   ]
 
@@ -203,10 +225,10 @@ export function formatExperienceEntry(entryId, lang = DEFAULT_LANGUAGE) {
 export function formatProjects(lang = DEFAULT_LANGUAGE) {
   const projects = getLocalizedContent(lang).projects || []
   const ui = getUi(lang)
-  const lines = [...sectionHeading(ui.projects)]
+  const lines = [...sectionHeading(ui.projects, lang)]
 
   projects.forEach((project) => {
-    lines.push(project.name)
+    lines.push({ text: project.name, kind: 'role' })
     lines.push(...formatProjectFields(project, ui))
     lines.push('\u00A0')
   })
@@ -220,16 +242,19 @@ export function formatProjectEntry(entryId, lang = DEFAULT_LANGUAGE) {
   if (!project) return null
 
   const ui = getUi(lang)
-  return [project.name, ...formatProjectFields(project, ui)]
+  return [{ text: project.name, kind: 'role' }, ...formatProjectFields(project, ui)]
 }
 
 export function formatEducation(lang = DEFAULT_LANGUAGE) {
   const education = getLocalizedContent(lang).education || []
   const ui = getUi(lang)
-  const lines = [...sectionHeading(ui.education)]
+  const lines = [...sectionHeading(ui.education, lang)]
 
   education.forEach((item) => {
-    lines.push(`${item.institution.padEnd(36)} ${item.period}`)
+    lines.push({
+      text: `${item.institution.padEnd(36)} ${item.period}`,
+      kind: 'role',
+    })
   })
 
   return lines
@@ -242,8 +267,8 @@ export function formatEducationEntry(entryId, lang = DEFAULT_LANGUAGE) {
 
   const ui = getUi(lang)
   return [
-    item.institution,
-    `${ui.period}: ${item.period}`,
+    { text: item.institution, kind: 'role' },
+    labeled(ui.period, item.period),
   ]
 }
 

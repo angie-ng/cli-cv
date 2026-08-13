@@ -15,9 +15,9 @@
 ## 3) Output Formatting Polish
 
 - [x] Improve spacing between sections/entries
-- [ ] Add visual output types (e.g. title, role, bullet, muted)
-- [ ] Highlight role lines (color or semi-bold style)
-- [ ] Verify contrast/readability in terminal theme
+- [x] Add visual output types (e.g. title, role, bullet, muted)
+- [x] Highlight role lines (color or semi-bold style)
+- [x] Verify contrast/readability in terminal theme
 
 ## 4) Language Switching
 
@@ -58,12 +58,13 @@
 
 ## 10) Documentation
 
-- [ ] Replace default Vite README with project README:
-  - [ ] What the project is
-  - [ ] How to run it
-  - [ ] Available commands
-  - [ ] Command history and its limits, info about tab and arrows
+- [x] Replace default Vite README with project README:
+  - [x] What the project is
+  - [x] How to run it
+  - [x] Available commands
+  - [x] Command history and its limits, info about tab and arrows
 
 ## 11) Nice-to-have (Optional)
 
-- [ ] Blinking cursor in prompt
+- [x] Blinking cursor in prompt
+- [ ] Funny error message when user types "sudo"

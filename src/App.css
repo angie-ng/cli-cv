@@ -142,6 +142,15 @@
   color: #ff8b8b;
 }
 
+.terminal-output.is-title {
+  color: #7ec8ff;
+}
+
+.terminal-output.is-role {
+  color: #e6c07b;
+  font-weight: 600;
+}
+
 .terminal-link {
   color: #7ec8ff;
   text-decoration: underline;
@@ -172,7 +181,8 @@
   background: transparent;
   color: #d7e1ea;
   font: inherit;
-  caret-color: #e8eef5;
+  caret-color: #8fdc78;
+  caret-shape: block;
 }
 
 .terminal-input::selection {
