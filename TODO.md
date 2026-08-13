@@ -46,11 +46,10 @@
 
 ## 8) UX Cleanup
 
-- [ ] Remove fake window controls (`_ [] X`) if non-functional
-- [ ] Fine-tune spacing and responsive layout, changeable size of terminal
-- [ ] Optional: add `theme` command for light/dark terminal modes
-- [ ] Auto-scroll down after command submit
-- [ ] Refocus input after submit
+- [x] Replace fake window controls (`_ [] X`) with maximize / restore
+- [x] Fine-tune spacing and responsive layout, changeable size of terminal
+- [x] Auto-scroll down after command submit
+- [x] Refocus input after submit
 
 ## 9) Quality / Stability
 

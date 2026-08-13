@@ -1,15 +1,56 @@
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { COMMAND_NAMES, executeCommand } from './commands'
 import { completeInputLine } from './commands/shared/complete'
 import { HOME_PATH } from './commands/shared/vfs'
 import './App.css'
 
 const URL_IN_TEXT = /https?:\/\/[^\s]+/gi
+const DEFAULT_WIDTH = 900
+const DEFAULT_HEIGHT = 560
+const MIN_WIDTH = 320
+const MIN_HEIGHT = 280
+const PAGE_PADDING = 48
+
+const RESIZE_HANDLES = [
+  { edge: 'n', cursor: 'ns-resize' },
+  { edge: 's', cursor: 'ns-resize' },
+  { edge: 'e', cursor: 'ew-resize' },
+  { edge: 'w', cursor: 'ew-resize' },
+  { edge: 'ne', cursor: 'nesw-resize' },
+  { edge: 'nw', cursor: 'nwse-resize' },
+  { edge: 'se', cursor: 'nwse-resize' },
+  { edge: 'sw', cursor: 'nesw-resize' },
+]
 
 function formatPrompt(cwd) {
   // "~" means the reader home directory, just like a real shell.
   const pathPart = cwd === HOME_PATH ? '~' : cwd
   return `reader@angelika-cv:${pathPart}$`
+}
+
+function getMaxSize() {
+  return {
+    maxW: Math.max(MIN_WIDTH, window.innerWidth - PAGE_PADDING),
+    maxH: Math.max(MIN_HEIGHT, window.innerHeight - PAGE_PADDING),
+  }
+}
+
+function clampSize(width, height) {
+  const { maxW, maxH } = getMaxSize()
+  return {
+    width: Math.min(Math.max(width, MIN_WIDTH), maxW),
+    height: Math.min(Math.max(height, MIN_HEIGHT), maxH),
+  }
+}
+
+function sizeFromDelta(edge, startWidth, startHeight, dx, dy) {
+  let width = startWidth
+  let height = startHeight
+  if (edge.includes('e')) width = startWidth + dx
+  if (edge.includes('w')) width = startWidth - dx
+  if (edge.includes('s')) height = startHeight + dy
+  if (edge.includes('n')) height = startHeight - dy
+  return clampSize(width, height)
 }
 
 /** Split a line into text and clickable http(s) link segments. */
@@ -53,15 +94,75 @@ function App() {
   const [historyIndex, setHistoryIndex] = useState(null)
   // Start inside the read-only reader home.
   const [cwd, setCwd] = useState(HOME_PATH)
+  const [isMaximized, setIsMaximized] = useState(false)
+  const [size, setSize] = useState(() => clampSize(DEFAULT_WIDTH, DEFAULT_HEIGHT))
   const inputRef = useRef(null)
+  const bodyRef = useRef(null)
+  const resizeRef = useRef(null)
 
   const promptLabel = useMemo(() => formatPrompt(cwd), [cwd])
+
+  const focusInput = () => {
+    inputRef.current?.focus()
+  }
+
+  const scrollToBottom = () => {
+    const body = bodyRef.current
+    if (body) {
+      body.scrollTop = body.scrollHeight
+    }
+  }
+
+  useLayoutEffect(() => {
+    scrollToBottom()
+  }, [history])
+
+  useEffect(() => {
+    const onResize = () => {
+      setSize((prev) => clampSize(prev.width, prev.height))
+    }
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+
+  useEffect(() => {
+    const onPointerMove = (event) => {
+      const session = resizeRef.current
+      if (!session) return
+      setSize(
+        sizeFromDelta(
+          session.edge,
+          session.startWidth,
+          session.startHeight,
+          event.clientX - session.startX,
+          event.clientY - session.startY,
+        ),
+      )
+    }
+
+    const onPointerUp = () => {
+      if (!resizeRef.current) return
+      resizeRef.current = null
+      document.body.classList.remove('is-resizing-terminal')
+    }
+
+    window.addEventListener('pointermove', onPointerMove)
+    window.addEventListener('pointerup', onPointerUp)
+    window.addEventListener('pointercancel', onPointerUp)
+    return () => {
+      window.removeEventListener('pointermove', onPointerMove)
+      window.removeEventListener('pointerup', onPointerUp)
+      window.removeEventListener('pointercancel', onPointerUp)
+    }
+  }, [])
 
   const handleSubmit = (event) => {
     event.preventDefault()
 
     const typed = currentInput.trim()
     setCurrentInput('')
+    focusInput()
+    scrollToBottom()
     if (!typed) return
 
     setCommandHistory((prev) => {
@@ -132,17 +233,61 @@ function App() {
     }
   }
 
+  const handleBodyPointerDown = (event) => {
+    if (event.target.closest('a, button, input')) return
+    if (window.getSelection()?.toString()) return
+    focusInput()
+  }
+
+  const handleResizePointerDown = (edge, event) => {
+    if (isMaximized) return
+    event.preventDefault()
+    event.stopPropagation()
+    resizeRef.current = {
+      edge,
+      startX: event.clientX,
+      startY: event.clientY,
+      startWidth: size.width,
+      startHeight: size.height,
+    }
+    document.body.classList.add('is-resizing-terminal')
+  }
+
+  const windowClassName = [
+    'terminal-window',
+    isMaximized ? 'is-maximized' : '',
+  ]
+    .filter(Boolean)
+    .join(' ')
+
   return (
     <main className="terminal-page">
-      <section className="terminal-window" aria-label="Interactive CV terminal">
+      <section
+        className={windowClassName}
+        aria-label="Interactive CV terminal"
+        style={isMaximized ? undefined : { width: size.width, height: size.height }}
+      >
         <header className="terminal-header">
           <span className="terminal-title">Terminal - reader@angelika-cv</span>
-          <span className="terminal-chrome" aria-hidden="true">
-            _ [] X
-          </span>
+          <button
+            type="button"
+            className="terminal-maximize"
+            aria-label={isMaximized ? 'Restore terminal size' : 'Maximize terminal'}
+            onClick={() => setIsMaximized((prev) => !prev)}
+          >
+            {isMaximized ? (
+              <span className="maximize-icon restore" aria-hidden="true" />
+            ) : (
+              <span className="maximize-icon" aria-hidden="true" />
+            )}
+          </button>
         </header>
 
-        <div className="terminal-body">
+        <div
+          className="terminal-body"
+          ref={bodyRef}
+          onPointerDown={handleBodyPointerDown}
+        >
           <p className="terminal-line">Welcome to Angelika&apos;s interactive CV terminal.</p>
           <p className="terminal-line">To see available commands, type &quot;help&quot; and press Enter.</p>
 
@@ -186,6 +331,16 @@ function App() {
             />
           </form>
         </div>
+
+        {!isMaximized &&
+          RESIZE_HANDLES.map(({ edge, cursor }) => (
+            <div
+              key={edge}
+              className={`resize-handle resize-${edge}`}
+              style={{ cursor }}
+              onPointerDown={(event) => handleResizePointerDown(edge, event)}
+            />
+          ))}
       </section>
     </main>
   )

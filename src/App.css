@@ -11,8 +11,12 @@
 }
 
 .terminal-window {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   width: min(900px, 100%);
-  min-height: 560px;
+  height: 560px;
+  max-width: 100%;
   border: 1px solid #3a4551;
   border-radius: 4px;
   overflow: hidden;
@@ -22,12 +26,26 @@
     0 6px 16px rgba(15, 23, 42, 0.2);
 }
 
+.terminal-window.is-maximized {
+  position: fixed;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none;
+  border-radius: 0;
+  z-index: 10;
+}
+
 .terminal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+  flex-shrink: 0;
   padding: 10px 12px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  padding-top: max(10px, env(safe-area-inset-top));
   border-bottom: 1px solid #374251;
   background: #1b2430;
 }
@@ -35,16 +53,55 @@
 .terminal-title {
   font-size: 14px;
   color: #c7ced7;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.terminal-chrome {
-  font-size: 12px;
-  color: #8d98a5;
-  letter-spacing: 0.06em;
+.terminal-maximize {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid #6b7684;
+  border-radius: 3px;
+  background: transparent;
+  color: #c7ced7;
+  cursor: pointer;
+}
+
+.terminal-maximize:hover,
+.terminal-maximize:focus-visible {
+  background: #2a3544;
+  outline: none;
+}
+
+.maximize-icon {
+  display: block;
+  width: 10px;
+  height: 8px;
+  border: 1.5px solid currentColor;
+  box-sizing: border-box;
+}
+
+.maximize-icon.restore {
+  width: 8px;
+  height: 6px;
+  margin-top: 2px;
+  margin-left: -2px;
+  box-shadow: 2px -2px 0 -1.5px #1b2430, 2px -2px 0 0 currentColor;
 }
 
 .terminal-body {
-  padding: 24px;
+  flex: 1;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 16px 18px 18px;
+  padding-bottom: max(18px, env(safe-area-inset-bottom));
   font-size: 16px;
   line-height: 1.5;
   color: #d7e1ea;
@@ -53,10 +110,11 @@
 .terminal-line {
   margin: 0 0 6px;
   color: #aab7c4;
+  overflow-wrap: anywhere;
 }
 
 .terminal-history {
-  margin-top: 18px;
+  margin-top: 14px;
 }
 
 .history-entry {
@@ -65,16 +123,19 @@
 
 .terminal-prompt-line {
   margin: 0 0 3px;
+  overflow-wrap: anywhere;
 }
 
 .prompt-label {
   color: #8fdc78;
+  overflow-wrap: anywhere;
 }
 
 .terminal-output {
   margin: 0 0 2px;
   color: #d7e1ea;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .terminal-output.error {
@@ -97,20 +158,21 @@
 
 .terminal-prompt {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  align-items: baseline;
   gap: 8px;
-  margin-top: 14px;
+  margin-top: 12px;
 }
 
 .terminal-input {
-  flex: 1;
+  flex: 1 1 8rem;
+  min-width: 8rem;
   border: none;
   outline: none;
   background: transparent;
   color: #d7e1ea;
   font: inherit;
   caret-color: #e8eef5;
-  min-width: 80px;
 }
 
 .terminal-input::selection {
@@ -122,16 +184,84 @@
   color: #687482;
 }
 
+.resize-handle {
+  position: absolute;
+  z-index: 3;
+  touch-action: none;
+}
+
+.resize-n,
+.resize-s {
+  left: 8px;
+  right: 8px;
+  height: 6px;
+}
+
+.resize-e,
+.resize-w {
+  top: 8px;
+  bottom: 8px;
+  width: 6px;
+}
+
+.resize-n { top: 0; }
+.resize-s { bottom: 0; }
+.resize-e { right: 0; }
+.resize-w { left: 0; }
+
+.resize-ne,
+.resize-nw,
+.resize-se,
+.resize-sw {
+  width: 12px;
+  height: 12px;
+}
+
+.resize-ne { top: 0; right: 0; }
+.resize-nw { top: 0; left: 0; }
+.resize-se { bottom: 0; right: 0; }
+.resize-sw { bottom: 0; left: 0; }
+
+body.is-resizing-terminal {
+  user-select: none;
+  cursor: inherit;
+}
+
+body.is-resizing-terminal * {
+  cursor: inherit !important;
+}
+
 @media (max-width: 640px) {
   .terminal-page {
-    padding: 10px;
+    padding: 0;
+    background: #121920;
   }
 
-  .terminal-window {
-    min-height: 70svh;
+  .terminal-window,
+  .terminal-window.is-maximized {
+    position: relative;
+    inset: auto;
+    width: 100% !important;
+    height: 100svh !important;
+    height: 100dvh !important;
+    max-width: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .terminal-maximize,
+  .resize-handle {
+    display: none;
   }
 
   .terminal-body {
-    padding: 14px;
+    padding: 12px 14px;
+    padding-bottom: max(14px, env(safe-area-inset-bottom));
+    font-size: 15px;
+  }
+
+  .terminal-title {
+    font-size: 13px;
   }
 }
