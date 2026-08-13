@@ -1,3 +1,5 @@
+import { SUPPORTED_LANGUAGES } from './shared/lang'
+
 /**
  * Help content for the interactive CV terminal.
  * Keep this list aligned with commands registered in index.js.
@@ -46,8 +48,8 @@ export function helpCommand(args = []) {
     'Language (advanced):',
     '--------------------',
     '  Default language is English (en).',
-    '  Use --lang cz on content commands (e.g. cat about --lang cz).',
-    '  Planned later: fr, de, it.',
+    `  Supported languages: ${SUPPORTED_LANGUAGES.join(', ')}.`,
+    '  Use --lang <code> on content commands (e.g. about --lang cz).',
   ]
 
   return { output: lines, isError: false }

@@ -7,6 +7,38 @@ import { DEFAULT_LANGUAGE, getLocalizedContent } from './lang'
  * so output stays consistent no matter how the user asks for the data.
  */
 
+const UI_FALLBACK = {
+  about: 'About',
+  focus: 'Focus',
+  skills: 'Skills',
+  technologies: 'Technologies',
+  tools: 'Tools',
+  languages: 'Languages',
+  softSkills: 'Soft skills',
+  contact: 'Contact',
+  email: 'Email',
+  linkedin: 'LinkedIn',
+  github: 'GitHub',
+  links: 'Links',
+  experience: 'Experience',
+  period: 'Period',
+  projects: 'Projects',
+  type: 'Type',
+  description: 'Description',
+  stack: 'Technology stack',
+  method: 'Method',
+  link: 'Link',
+  education: 'Education',
+}
+
+function getUi(lang) {
+  return { ...UI_FALLBACK, ...(getLocalizedContent(lang).ui || {}) }
+}
+
+function sectionHeading(title) {
+  return [title, '-'.repeat(title.length)]
+}
+
 function trimTrailingSpacer(lines) {
   if (lines[lines.length - 1] === '\u00A0') {
     lines.pop()
@@ -14,21 +46,55 @@ function trimTrailingSpacer(lines) {
   return lines
 }
 
+function formatProjectFields(project, ui) {
+  const lines = []
+
+  if (project.type) {
+    lines.push(`${ui.type}: ${project.type}`)
+  }
+
+  if (project.description) {
+    lines.push(`${ui.description}:`)
+    project.description.forEach((desc) => lines.push(`  • ${desc}`))
+  }
+
+  if (project.stack) {
+    lines.push(`${ui.stack}:`)
+    project.stack.forEach((tech) => lines.push(`  • ${tech}`))
+  }
+
+  if (project.focus) {
+    lines.push(`${ui.focus}:`)
+    project.focus.forEach((item) => lines.push(`  • ${item}`))
+  }
+
+  if (project.method) {
+    lines.push(`${ui.method}: ${project.method}`)
+  }
+
+  if (project.repository) {
+    lines.push(`${ui.link}: ${project.repository}`)
+  }
+
+  return lines
+}
+
 export function formatAbout(lang = DEFAULT_LANGUAGE) {
   const { name, title, focus, summary } = getLocalizedContent(lang).profile || {}
+  const ui = getUi(lang)
 
   return [
-    'About',
-    '-----',
+    ...sectionHeading(ui.about),
     `${name} — ${title}`,
-    `Focus: ${focus}`,
+    `${ui.focus}: ${focus}`,
     '\u00A0',
     summary,
   ]
 }
 
 export function formatSkills(lang = DEFAULT_LANGUAGE) {
-  const lines = ['Skills', '------']
+  const ui = getUi(lang)
+  const lines = [...sectionHeading(ui.skills)]
 
   lines.push(...formatSkillsTechnologies(lang))
   lines.push('\u00A0')
@@ -44,21 +110,24 @@ export function formatSkills(lang = DEFAULT_LANGUAGE) {
 /** One skills category as a standalone file for the skills/ directory. */
 export function formatSkillsTechnologies(lang = DEFAULT_LANGUAGE) {
   const skills = getLocalizedContent(lang).skills || {}
-  const lines = ['Technologies', '------------']
+  const ui = getUi(lang)
+  const lines = [...sectionHeading(ui.technologies)]
   ;(skills.technologies || []).forEach((tech) => lines.push(tech))
   return lines
 }
 
 export function formatSkillsTools(lang = DEFAULT_LANGUAGE) {
   const skills = getLocalizedContent(lang).skills || {}
-  const lines = ['Tools', '-----']
+  const ui = getUi(lang)
+  const lines = [...sectionHeading(ui.tools)]
   ;(skills.tools || []).forEach((tool) => lines.push(tool))
   return lines
 }
 
 export function formatSkillsLanguages(lang = DEFAULT_LANGUAGE) {
   const skills = getLocalizedContent(lang).skills || {}
-  const lines = ['Languages', '---------']
+  const ui = getUi(lang)
+  const lines = [...sectionHeading(ui.languages)]
   Object.entries(skills.languages || {}).forEach(([code, level]) => {
     lines.push(`${code.toUpperCase()}: ${level}`)
   })
@@ -67,37 +136,39 @@ export function formatSkillsLanguages(lang = DEFAULT_LANGUAGE) {
 
 export function formatSkillsSoftSkills(lang = DEFAULT_LANGUAGE) {
   const skills = getLocalizedContent(lang).skills || {}
-  const lines = ['Soft skills', '-----------']
+  const ui = getUi(lang)
+  const lines = [...sectionHeading(ui.softSkills)]
   ;(skills.soft_skills || []).forEach((skill) => lines.push(skill))
   return lines
 }
 
 export function formatContact(lang = DEFAULT_LANGUAGE) {
   const { email, linkedin, github } = getLocalizedContent(lang).contact || {}
+  const ui = getUi(lang)
 
   return [
-    'Contact',
-    '-------',
-    `Email:    ${email}`,
-    `LinkedIn: ${linkedin}`,
-    `GitHub:   ${github}`,
+    ...sectionHeading(ui.contact),
+    `${ui.email}: ${email}`,
+    `${ui.linkedin}: ${linkedin}`,
+    `${ui.github}: ${github}`,
   ]
 }
 
 export function formatLinks(lang = DEFAULT_LANGUAGE) {
   const { github, linkedin } = getLocalizedContent(lang).contact || {}
+  const ui = getUi(lang)
 
   return [
-    'Links',
-    '-----',
-    `GitHub:   ${github}`,
-    `LinkedIn: ${linkedin}`,
+    ...sectionHeading(ui.links),
+    `${ui.github}: ${github}`,
+    `${ui.linkedin}: ${linkedin}`,
   ]
 }
 
 export function formatExperience(lang = DEFAULT_LANGUAGE) {
   const experience = getLocalizedContent(lang).experience || []
-  const lines = ['Experience', '----------']
+  const ui = getUi(lang)
+  const lines = [...sectionHeading(ui.experience)]
 
   experience.forEach((item) => {
     lines.push(`${item.role.padEnd(26)} ${item.company.padEnd(26)} ${item.period}`)
@@ -115,9 +186,10 @@ export function formatExperienceEntry(entryId, lang = DEFAULT_LANGUAGE) {
   const item = experience.find((entry) => entry.id === entryId)
   if (!item) return null
 
+  const ui = getUi(lang)
   const lines = [
     `${item.role} @ ${item.company}`,
-    `Period: ${item.period}`,
+    `${ui.period}: ${item.period}`,
     '\u00A0',
   ]
 
@@ -130,38 +202,12 @@ export function formatExperienceEntry(entryId, lang = DEFAULT_LANGUAGE) {
 
 export function formatProjects(lang = DEFAULT_LANGUAGE) {
   const projects = getLocalizedContent(lang).projects || []
-  const lines = ['Projects', '--------']
+  const ui = getUi(lang)
+  const lines = [...sectionHeading(ui.projects)]
 
   projects.forEach((project) => {
     lines.push(project.name)
-
-    if (project.type) {
-      lines.push(`Type: ${project.type}`)
-    }
-
-    if (project.description) {
-      lines.push('Description:')
-      project.description.forEach((desc) => lines.push(`  • ${desc}`))
-    }
-
-    if (project.stack) {
-      lines.push('Technology stack:')
-      project.stack.forEach((tech) => lines.push(`  • ${tech}`))
-    }
-
-    if (project.focus) {
-      lines.push('Focus:')
-      project.focus.forEach((item) => lines.push(`  • ${item}`))
-    }
-
-    if (project.method) {
-      lines.push(`Method: ${project.method}`)
-    }
-
-    if (project.repository) {
-      lines.push(`Link: ${project.repository}`)
-    }
-
+    lines.push(...formatProjectFields(project, ui))
     lines.push('\u00A0')
   })
 
@@ -173,42 +219,14 @@ export function formatProjectEntry(entryId, lang = DEFAULT_LANGUAGE) {
   const project = projects.find((entry) => entry.id === entryId)
   if (!project) return null
 
-  // Same visual structure as the full projects overview, but for one item only.
-  const lines = [project.name]
-
-  if (project.type) {
-    lines.push(`Type: ${project.type}`)
-  }
-
-  if (project.description) {
-    lines.push('Description:')
-    project.description.forEach((desc) => lines.push(`  • ${desc}`))
-  }
-
-  if (project.stack) {
-    lines.push('Technology stack:')
-    project.stack.forEach((tech) => lines.push(`  • ${tech}`))
-  }
-
-  if (project.focus) {
-    lines.push('Focus:')
-    project.focus.forEach((item) => lines.push(`  • ${item}`))
-  }
-
-  if (project.method) {
-    lines.push(`Method: ${project.method}`)
-  }
-
-  if (project.repository) {
-    lines.push(`Link: ${project.repository}`)
-  }
-
-  return lines
+  const ui = getUi(lang)
+  return [project.name, ...formatProjectFields(project, ui)]
 }
 
 export function formatEducation(lang = DEFAULT_LANGUAGE) {
   const education = getLocalizedContent(lang).education || []
-  const lines = ['Education', '---------']
+  const ui = getUi(lang)
+  const lines = [...sectionHeading(ui.education)]
 
   education.forEach((item) => {
     lines.push(`${item.institution.padEnd(36)} ${item.period}`)
@@ -222,9 +240,10 @@ export function formatEducationEntry(entryId, lang = DEFAULT_LANGUAGE) {
   const item = education.find((entry) => entry.id === entryId)
   if (!item) return null
 
+  const ui = getUi(lang)
   return [
     item.institution,
-    `Period: ${item.period}`,
+    `${ui.period}: ${item.period}`,
   ]
 }
 

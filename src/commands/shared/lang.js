@@ -6,10 +6,6 @@ export const DEFAULT_LANGUAGE = cv.meta?.defaultLanguage || 'en'
 // Languages that already have content in cv.json.
 export const SUPPORTED_LANGUAGES = cv.meta?.supportedLanguages || ['en']
 
-// Languages we plan to add later (kept here so future expansion is obvious).
-// Planned order from the product roadmap: fr -> de -> it.
-export const PLANNED_LANGUAGES = cv.meta?.plannedLanguages || ['fr', 'de', 'it']
-
 /**
  * Normalize and validate a language code.
  * Returns { lang } on success, or { error } with a terminal-friendly message.
@@ -19,12 +15,6 @@ export function resolveLanguage(rawLang) {
 
   if (SUPPORTED_LANGUAGES.includes(lang)) {
     return { lang }
-  }
-
-  if (PLANNED_LANGUAGES.includes(lang)) {
-    return {
-      error: `Language "${lang}" is planned but not available yet. Supported now: ${SUPPORTED_LANGUAGES.join(', ')}`,
-    }
   }
 
   return {

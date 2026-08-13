@@ -24,6 +24,7 @@
 - [x] Decide JSON structure for multilingual content (`cz` / `en`)
 - [x] Add option --lang for displaying output in other languages
 - [x] Ensure all command outputs use --lang for their output
+- [x] Add `fr` / `de` / `it` content packs and localize output headings
 
 ## 5) History Navigation
 
