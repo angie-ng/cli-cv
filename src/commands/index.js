@@ -13,6 +13,7 @@ import { lsCommand } from './ls'
 import { catCommand } from './cat'
 import { cdCommand } from './cd'
 import { rmCommand } from './rm'
+import { sudoCommand } from './sudo'
 
 /**
  * Command registry.
@@ -36,6 +37,7 @@ const COMMANDS = {
   cd: cdCommand,
   rm: rmCommand,
   rmdir: rmCommand,
+  sudo: sudoCommand,
 }
 
 export const COMMAND_NAMES = Object.keys(COMMANDS)
