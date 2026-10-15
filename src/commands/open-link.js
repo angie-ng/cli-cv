@@ -4,7 +4,7 @@ const URL_PATTERN = /^https?:\/\//i
 
 /**
  * Build name -> URL map for openlink.
- * Contact profiles + project ids that have a repository URL.
+ * Contact profiles + project ids that have a link URL.
  */
 function buildLinkMap() {
   const content = getLocalizedContent('en')
@@ -15,8 +15,8 @@ function buildLinkMap() {
   if (contact.linkedin) map.linkedin = contact.linkedin
 
   ;(content.projects || []).forEach((project) => {
-    if (project.id && project.repository) {
-      map[project.id] = project.repository
+    if (project.id && project.link) {
+      map[project.id] = project.link
     }
   })
 

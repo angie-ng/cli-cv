@@ -7,7 +7,6 @@
     "en": {
       "ui": {
         "about": "About",
-        "focus": "Focus",
         "skills": "Skills",
         "technologies": "Technologies",
         "tools": "Tools",
@@ -21,18 +20,14 @@
         "experience": "Experience",
         "period": "Period",
         "projects": "Projects",
-        "type": "Type",
-        "description": "Description",
         "stack": "Technology stack",
-        "method": "Method",
         "link": "Link",
         "education": "Education"
       },
       "profile": {
         "name": "Angelika Viktorinová",
-        "title": "Junior DevOps Engineer",
-        "focus": "Cloud & Linux",
-        "summary": "Aspiring Junior DevOps engineer transitioning into IT through self-directed study. Learning Linux, Git, Docker, CI/CD and cloud deployment via practical labs and personal projects. Highly motivated to learn, take responsibility, and grow in a real-world DevOps environment."
+        "headline": "DevOps Engineer | Cloud | Automation",
+        "summary": "DevOps engineer who turns ideas into working systems through infrastructure, automation, CI/CD, and cloud. I take ownership, pay attention to detail, and value clear communication and teamwork. Currently preparing for the AWS Cloud Practitioner certification, I'm now looking to focus more on cloud and Kubernetes."
       },
       "contact": {
         "linkedin": "https://www.linkedin.com/in/angelika-viktorinova/",
@@ -46,14 +41,17 @@
           "Docker",
           "Docker Compose",
           "Kubernetes",
-          "CI/CD pipelines",
           "GitHub Actions",
+          "GitLab CI/CD",
+          "Azure DevOps",
           "Traefik",
           "Oracle Cloud",
-          "AWS"
+          "AWS",
+          "Terraform"
         ],
         "tools": [
           "Git",
+          "Notion",
           "Jira",
           "Grafana",
           "Splunk"
@@ -62,8 +60,8 @@
           "cz": "C2",
           "en": "C1",
           "fr": "B1",
-          "it": "A2",
-          "de": "A2"
+          "de": "B1",
+          "it": "A2"
         },
         "soft_skills": [
           "Analytical thinking",
@@ -75,9 +73,37 @@
       },
       "projects": [
         {
+          "id": "self-directed-learning-labs",
+          "name": "Self-Directed Learning Labs",
+          "category": "Online courses & home labs",
+          "highlights": [
+            "Linux administration",
+            "Containerization",
+            "Kubernetes",
+            "Terraform",
+            "Cloud fundamentals"
+          ]
+        },
+        {
+          "id": "cli-cv",
+          "name": "Interactive CLI-style web CV",
+          "category": "Personal web project",
+          "stack": [
+            "GitHub Actions",
+            "GitHub Pages",
+            "JSON"
+          ],
+          "highlights": [
+            "Designed the CLI-style concept, interaction model, and virtual filesystem structure",
+            "Structured CV content as JSON and separated data from presentation",
+            "Created a CI/CD pipeline for automated build and deployment",
+            "Automated deployment to GitHub Pages"
+          ]
+        },
+        {
           "id": "dafneapp",
           "name": "DafneApp",
-          "type": "Personal DevOps Project",
+          "category": "Personal DevOps project",
           "stack": [
             "Python",
             "Flask",
@@ -87,30 +113,29 @@
             "Traefik",
             "Oracle Cloud"
           ],
-          "description": [
+          "highlights": [
             "End-to-end DevOps workflow implementation",
             "Containerized Flask application with Docker",
-            "CI/CD pipelines with automated testing, image build and registry push",
-            "Continuous deployment via SSH using custom deploy.sh script",
+            "CI/CD pipelines with automated testing, image build and push to GitHub Container Registry",
+            "Continuous deployment via SSH using a custom deploy.sh script",
             "HTTPS routing and certificate management with Traefik",
             "Fully automated production deployment on Oracle Cloud"
           ],
-          "repository": "https://github.com/angie-ng/first-devops-project"
-        },
-        {
-          "id": "self-directed-learning-labs",
-          "name": "Self-Directed Learning Labs",
-          "focus": [
-            "Linux administration",
-            "Containerization",
-            "Kubernetes",
-            "Terraform",
-            "Cloud fundamentals"
-          ],
-          "method": "Online courses and home labs"
+          "link": "https://github.com/angie-ng/first-devops-project"
         }
       ],
       "experience": [
+        {
+          "id": "fn-brno",
+          "role": "IT Support / Secretary",
+          "company": "Fakultní nemocnice Brno",
+          "period": "2020–2024",
+          "responsibilities": [
+            "Software and hardware troubleshooting support",
+            "IT process improvements",
+            "Department website administration"
+          ]
+        },
         {
           "id": "embedit",
           "role": "Service Desk Operator",
@@ -127,34 +152,37 @@
           ]
         },
         {
-          "id": "fn-brno",
-          "role": "IT Support / Secretary",
-          "company": "Fakultní nemocnice Brno",
-          "period": "2020–2024",
+          "id": "hackihub",
+          "role": "DevOps Engineer (Trainee)",
+          "company": "Hackihub",
+          "period": "2026",
           "responsibilities": [
-            "Software and hardware troubleshooting support",
-            "IT process improvements",
-            "Department website administration"
+            "Built and deployed the company documentation portal: a Docusaurus site hosted on AWS S3, served via CloudFront and Route 53, including the infrastructure setup",
+            "Automated client-facing API documentation generation from OpenAPI/Swagger specifications, including endpoint filtering by criteria",
+            "Developed reusable CI/CD workflows across GitHub Actions, GitLab CI/CD, and Azure DevOps, with cloud deployment to AWS using Terraform",
+            "Wrote technical product and DevSecOps documentation, including research, content creation, and translation",
+            "Manual software testing and validation (API integration, repository scanning, platform feature testing)",
+            "Daily use of Git and GitHub, including branching, pull requests, and Conventional Commits",
+            "Technical coordination and customer communication: requirements clarification, meeting coordination, decision documentation, and follow-up"
           ]
         }
       ],
       "education": [
         {
-          "id": "masaryk-university",
-          "institution": "Masaryk University, Brno",
-          "period": "2008–2015"
-        },
-        {
           "id": "gymnazium-matyase-lercha",
           "institution": "Gymnázium Matyáše Lercha, Brno",
           "period": "2004–2008"
+        },
+        {
+          "id": "masaryk-university",
+          "institution": "Masaryk University, Brno",
+          "period": "2008–2015"
         }
       ]
     },
     "cz": {
       "ui": {
         "about": "O mně",
-        "focus": "Zaměření",
         "skills": "Dovednosti",
         "technologies": "Technologie",
         "tools": "Nástroje",
@@ -168,18 +196,14 @@
         "experience": "Zkušenosti",
         "period": "Období",
         "projects": "Projekty",
-        "type": "Typ",
-        "description": "Popis",
         "stack": "Technologický stack",
-        "method": "Metoda",
         "link": "Odkaz",
         "education": "Vzdělání"
       },
       "profile": {
         "name": "Angelika Viktorinová",
-        "title": "Junior DevOps Engineer",
-        "focus": "Cloud & Linux",
-        "summary": "Aspirující junior DevOps engineer přecházející do IT prostřednictvím samostudia. Učím se Linux, Git, Docker, CI/CD a cloud deployment přes praktické laby a osobní projekty. Jsem silně motivovaná učit se, přebírat odpovědnost a růst v reálném DevOps prostředí."
+        "headline": "DevOps Engineer | Cloud | Automation",
+        "summary": "DevOps engineerka, která proměňuje nápady ve funkční systémy pomocí infrastruktury, automatizace, CI/CD a cloudu. Přebírám odpovědnost, dbám na detail a cením si jasné komunikace a týmové spolupráce. Aktuálně se připravuji na certifikaci AWS Cloud Practitioner a nyní se chci více zaměřit na cloud a Kubernetes."
       },
       "contact": {
         "linkedin": "https://www.linkedin.com/in/angelika-viktorinova/",
@@ -193,14 +217,17 @@
           "Docker",
           "Docker Compose",
           "Kubernetes",
-          "CI/CD pipelines",
           "GitHub Actions",
+          "GitLab CI/CD",
+          "Azure DevOps",
           "Traefik",
           "Oracle Cloud",
-          "AWS"
+          "AWS",
+          "Terraform"
         ],
         "tools": [
           "Git",
+          "Notion",
           "Jira",
           "Grafana",
           "Splunk"
@@ -209,8 +236,8 @@
           "cz": "C2",
           "en": "C1",
           "fr": "B1",
-          "it": "A2",
-          "de": "A2"
+          "de": "B1",
+          "it": "A2"
         },
         "soft_skills": [
           "Analytické myšlení",
@@ -222,9 +249,37 @@
       },
       "projects": [
         {
+          "id": "self-directed-learning-labs",
+          "name": "Samostatné vzdělávací laby",
+          "category": "Online kurzy a domácí laby",
+          "highlights": [
+            "Administrace Linuxu",
+            "Kontejnerizace",
+            "Kubernetes",
+            "Terraform",
+            "Základy cloudu"
+          ]
+        },
+        {
+          "id": "cli-cv",
+          "name": "Interaktivní webové CV ve stylu CLI",
+          "category": "Osobní webový projekt",
+          "stack": [
+            "GitHub Actions",
+            "GitHub Pages",
+            "JSON"
+          ],
+          "highlights": [
+            "Návrh konceptu ve stylu CLI, modelu interakce a struktury virtuálního souborového systému",
+            "Strukturování obsahu CV jako JSON a oddělení dat od prezentace",
+            "Vytvoření CI/CD pipeline pro automatizovaný build a nasazení",
+            "Automatizované nasazení na GitHub Pages"
+          ]
+        },
+        {
           "id": "dafneapp",
           "name": "DafneApp",
-          "type": "Osobní DevOps projekt",
+          "category": "Osobní DevOps projekt",
           "stack": [
             "Python",
             "Flask",
@@ -234,30 +289,29 @@
             "Traefik",
             "Oracle Cloud"
           ],
-          "description": [
+          "highlights": [
             "Implementace end-to-end DevOps workflow",
             "Kontejnerizace Flask aplikace pomocí Dockeru",
-            "CI/CD pipeline s automatickými testy, buildem image a push do registry",
+            "CI/CD pipeline s automatickými testy, buildem image a pushem do GitHub Container Registry",
             "Continuous deployment přes SSH pomocí vlastního skriptu deploy.sh",
             "HTTPS routing a správa certifikátů pomocí Traefiku",
             "Plně automatizované produkční nasazení na Oracle Cloud"
           ],
-          "repository": "https://github.com/angie-ng/first-devops-project"
-        },
-        {
-          "id": "self-directed-learning-labs",
-          "name": "Samostatné vzdělávací laby",
-          "focus": [
-            "Administrace Linuxu",
-            "Kontejnerizace",
-            "Kubernetes",
-            "Terraform",
-            "Základy cloudu"
-          ],
-          "method": "Online kurzy a domácí laby"
+          "link": "https://github.com/angie-ng/first-devops-project"
         }
       ],
       "experience": [
+        {
+          "id": "fn-brno",
+          "role": "IT Support / Sekretářka",
+          "company": "Fakultní nemocnice Brno",
+          "period": "2020–2024",
+          "responsibilities": [
+            "Podpora při řešení softwarových a hardwarových problémů",
+            "Zlepšování IT procesů",
+            "Správa webových stránek oddělení"
+          ]
+        },
         {
           "id": "embedit",
           "role": "Service Desk Operator",
@@ -274,34 +328,37 @@
           ]
         },
         {
-          "id": "fn-brno",
-          "role": "IT Support / Sekretářka",
-          "company": "Fakultní nemocnice Brno",
-          "period": "2020–2024",
+          "id": "hackihub",
+          "role": "DevOps Engineer (Trainee)",
+          "company": "Hackihub",
+          "period": "2026",
           "responsibilities": [
-            "Podpora při řešení softwarových a hardwarových problémů",
-            "Zlepšování IT procesů",
-            "Správa webových stránek oddělení"
+            "Vybudování a nasazení firemního dokumentačního portálu: Docusaurus web hostovaný na AWS S3, servírovaný přes CloudFront a Route 53, včetně nastavení infrastruktury",
+            "Automatizace generování zákaznické API dokumentace z OpenAPI/Swagger specifikací, včetně filtrování endpointů podle kritérií",
+            "Vývoj znovupoužitelných CI/CD workflow v GitHub Actions, GitLab CI/CD a Azure DevOps s nasazením do cloudu na AWS pomocí Terraformu",
+            "Psaní technické a DevSecOps dokumentace, včetně rešerší, tvorby obsahu a překladů",
+            "Manuální testování a validace softwaru (integrace API, skenování repozitářů, testování funkcí platformy)",
+            "Každodenní práce s Gitem a GitHubem, včetně větvení, pull requestů a Conventional Commits",
+            "Technická koordinace a komunikace se zákazníkem: upřesňování požadavků, koordinace schůzek, dokumentace rozhodnutí a follow-up"
           ]
         }
       ],
       "education": [
         {
-          "id": "masaryk-university",
-          "institution": "Masarykova univerzita, Brno",
-          "period": "2008–2015"
-        },
-        {
           "id": "gymnazium-matyase-lercha",
           "institution": "Gymnázium Matyáše Lercha, Brno",
           "period": "2004–2008"
+        },
+        {
+          "id": "masaryk-university",
+          "institution": "Masarykova univerzita, Brno",
+          "period": "2008–2015"
         }
       ]
     },
     "fr": {
       "ui": {
         "about": "À propos",
-        "focus": "Orientation",
         "skills": "Compétences",
         "technologies": "Technologies",
         "tools": "Outils",
@@ -315,18 +372,14 @@
         "experience": "Expérience",
         "period": "Période",
         "projects": "Projets",
-        "type": "Type",
-        "description": "Description",
         "stack": "Stack technique",
-        "method": "Méthode",
         "link": "Lien",
         "education": "Formation"
       },
       "profile": {
         "name": "Angelika Viktorinová",
-        "title": "Junior DevOps Engineer",
-        "focus": "Cloud & Linux",
-        "summary": "Junior DevOps en reconversion vers l'IT par l'autoformation. J'apprends Linux, Git, Docker, le CI/CD et le déploiement cloud à travers des labs pratiques et des projets personnels. Très motivée à apprendre, à prendre des responsabilités et à évoluer dans un environnement DevOps réel."
+        "headline": "DevOps Engineer | Cloud | Automation",
+        "summary": "Ingénieure DevOps qui transforme les idées en systèmes fonctionnels grâce à l'infrastructure, l'automatisation, le CI/CD et le cloud. Je prends des responsabilités, j'ai le souci du détail et j'accorde de l'importance à une communication claire et au travail d'équipe. Actuellement en préparation de la certification AWS Cloud Practitioner, je souhaite désormais me concentrer davantage sur le cloud et Kubernetes."
       },
       "contact": {
         "linkedin": "https://www.linkedin.com/in/angelika-viktorinova/",
@@ -340,14 +393,17 @@
           "Docker",
           "Docker Compose",
           "Kubernetes",
-          "CI/CD pipelines",
           "GitHub Actions",
+          "GitLab CI/CD",
+          "Azure DevOps",
           "Traefik",
           "Oracle Cloud",
-          "AWS"
+          "AWS",
+          "Terraform"
         ],
         "tools": [
           "Git",
+          "Notion",
           "Jira",
           "Grafana",
           "Splunk"
@@ -356,8 +412,8 @@
           "cz": "C2",
           "en": "C1",
           "fr": "B1",
-          "it": "A2",
-          "de": "A2"
+          "de": "B1",
+          "it": "A2"
         },
         "soft_skills": [
           "Pensée analytique",
@@ -369,9 +425,37 @@
       },
       "projects": [
         {
+          "id": "self-directed-learning-labs",
+          "name": "Labs d'apprentissage autodidacte",
+          "category": "Cours en ligne et labs à domicile",
+          "highlights": [
+            "Administration Linux",
+            "Conteneurisation",
+            "Kubernetes",
+            "Terraform",
+            "Fondamentaux du cloud"
+          ]
+        },
+        {
+          "id": "cli-cv",
+          "name": "CV web interactif façon CLI",
+          "category": "Projet web personnel",
+          "stack": [
+            "GitHub Actions",
+            "GitHub Pages",
+            "JSON"
+          ],
+          "highlights": [
+            "Conception du concept façon CLI, du modèle d'interaction et de la structure du système de fichiers virtuel",
+            "Structuration du contenu du CV en JSON et séparation des données et de la présentation",
+            "Création d'une pipeline CI/CD pour le build et le déploiement automatisés",
+            "Déploiement automatisé sur GitHub Pages"
+          ]
+        },
+        {
           "id": "dafneapp",
           "name": "DafneApp",
-          "type": "Projet DevOps personnel",
+          "category": "Projet DevOps personnel",
           "stack": [
             "Python",
             "Flask",
@@ -381,30 +465,29 @@
             "Traefik",
             "Oracle Cloud"
           ],
-          "description": [
+          "highlights": [
             "Mise en œuvre d'un workflow DevOps de bout en bout",
             "Application Flask conteneurisée avec Docker",
-            "Pipelines CI/CD avec tests automatisés, build d'image et push vers le registry",
+            "Pipelines CI/CD avec tests automatisés, build d'image et push vers GitHub Container Registry",
             "Déploiement continu via SSH à l'aide d'un script deploy.sh personnalisé",
             "Routage HTTPS et gestion des certificats avec Traefik",
             "Déploiement en production entièrement automatisé sur Oracle Cloud"
           ],
-          "repository": "https://github.com/angie-ng/first-devops-project"
-        },
-        {
-          "id": "self-directed-learning-labs",
-          "name": "Labs d'apprentissage autodidacte",
-          "focus": [
-            "Administration Linux",
-            "Conteneurisation",
-            "Kubernetes",
-            "Terraform",
-            "Fondamentaux du cloud"
-          ],
-          "method": "Cours en ligne et labs à domicile"
+          "link": "https://github.com/angie-ng/first-devops-project"
         }
       ],
       "experience": [
+        {
+          "id": "fn-brno",
+          "role": "Support IT / Secrétaire",
+          "company": "Fakultní nemocnice Brno",
+          "period": "2020–2024",
+          "responsibilities": [
+            "Support pour le dépannage logiciel et matériel",
+            "Amélioration des processus IT",
+            "Administration du site web du service"
+          ]
+        },
         {
           "id": "embedit",
           "role": "Service Desk Operator",
@@ -421,34 +504,37 @@
           ]
         },
         {
-          "id": "fn-brno",
-          "role": "Support IT / Secrétaire",
-          "company": "Fakultní nemocnice Brno",
-          "period": "2020–2024",
+          "id": "hackihub",
+          "role": "DevOps Engineer (Trainee)",
+          "company": "Hackihub",
+          "period": "2026",
           "responsibilities": [
-            "Support pour le dépannage logiciel et matériel",
-            "Amélioration des processus IT",
-            "Administration du site web du service"
+            "Création et déploiement du portail de documentation de l'entreprise : un site Docusaurus hébergé sur AWS S3, servi via CloudFront et Route 53, y compris la configuration de l'infrastructure",
+            "Automatisation de la génération de la documentation API destinée aux clients à partir de spécifications OpenAPI/Swagger, avec filtrage des endpoints selon des critères",
+            "Développement de workflows CI/CD réutilisables sur GitHub Actions, GitLab CI/CD et Azure DevOps, avec déploiement cloud sur AWS à l'aide de Terraform",
+            "Rédaction de documentation technique et DevSecOps, incluant recherche, création de contenu et traduction",
+            "Tests et validation manuels de logiciels (intégration d'API, analyse de dépôts, test des fonctionnalités de la plateforme)",
+            "Utilisation quotidienne de Git et GitHub, y compris branches, pull requests et Conventional Commits",
+            "Coordination technique et communication client : clarification des besoins, coordination des réunions, documentation des décisions et suivi"
           ]
         }
       ],
       "education": [
         {
-          "id": "masaryk-university",
-          "institution": "Université Masaryk, Brno",
-          "period": "2008–2015"
-        },
-        {
           "id": "gymnazium-matyase-lercha",
           "institution": "Gymnázium Matyáše Lercha, Brno",
           "period": "2004–2008"
+        },
+        {
+          "id": "masaryk-university",
+          "institution": "Université Masaryk, Brno",
+          "period": "2008–2015"
         }
       ]
     },
     "de": {
       "ui": {
         "about": "Über mich",
-        "focus": "Schwerpunkt",
         "skills": "Kompetenzen",
         "technologies": "Technologien",
         "tools": "Tools",
@@ -462,18 +548,14 @@
         "experience": "Berufserfahrung",
         "period": "Zeitraum",
         "projects": "Projekte",
-        "type": "Art",
-        "description": "Beschreibung",
         "stack": "Technologie-Stack",
-        "method": "Methode",
         "link": "Link",
         "education": "Ausbildung"
       },
       "profile": {
         "name": "Angelika Viktorinová",
-        "title": "Junior DevOps Engineer",
-        "focus": "Cloud & Linux",
-        "summary": "Angehende Junior DevOps Engineerin, die durch Selbststudium in die IT wechselt. Ich lerne Linux, Git, Docker, CI/CD und Cloud-Deployment über praktische Labs und persönliche Projekte. Hochmotiviert zu lernen, Verantwortung zu übernehmen und in einem realen DevOps-Umfeld zu wachsen."
+        "headline": "DevOps Engineer | Cloud | Automation",
+        "summary": "DevOps-Engineerin, die Ideen durch Infrastruktur, Automatisierung, CI/CD und Cloud in funktionierende Systeme verwandelt. Ich übernehme Verantwortung, achte auf Details und lege Wert auf klare Kommunikation und Teamarbeit. Derzeit bereite ich mich auf die AWS-Cloud-Practitioner-Zertifizierung vor und möchte mich nun stärker auf Cloud und Kubernetes konzentrieren."
       },
       "contact": {
         "linkedin": "https://www.linkedin.com/in/angelika-viktorinova/",
@@ -487,14 +569,17 @@
           "Docker",
           "Docker Compose",
           "Kubernetes",
-          "CI/CD pipelines",
           "GitHub Actions",
+          "GitLab CI/CD",
+          "Azure DevOps",
           "Traefik",
           "Oracle Cloud",
-          "AWS"
+          "AWS",
+          "Terraform"
         ],
         "tools": [
           "Git",
+          "Notion",
           "Jira",
           "Grafana",
           "Splunk"
@@ -503,8 +588,8 @@
           "cz": "C2",
           "en": "C1",
           "fr": "B1",
-          "it": "A2",
-          "de": "A2"
+          "de": "B1",
+          "it": "A2"
         },
         "soft_skills": [
           "Analytisches Denken",
@@ -516,9 +601,37 @@
       },
       "projects": [
         {
+          "id": "self-directed-learning-labs",
+          "name": "Selbstgesteuerte Lern-Labs",
+          "category": "Online-Kurse und Heim-Labs",
+          "highlights": [
+            "Linux-Administration",
+            "Containerisierung",
+            "Kubernetes",
+            "Terraform",
+            "Cloud-Grundlagen"
+          ]
+        },
+        {
+          "id": "cli-cv",
+          "name": "Interaktiver Web-Lebenslauf im CLI-Stil",
+          "category": "Persönliches Webprojekt",
+          "stack": [
+            "GitHub Actions",
+            "GitHub Pages",
+            "JSON"
+          ],
+          "highlights": [
+            "Entwurf des CLI-artigen Konzepts, des Interaktionsmodells und der Struktur des virtuellen Dateisystems",
+            "Strukturierung der Lebenslauf-Inhalte als JSON und Trennung von Daten und Präsentation",
+            "Aufbau einer CI/CD-Pipeline für automatisierten Build und Deployment",
+            "Automatisiertes Deployment auf GitHub Pages"
+          ]
+        },
+        {
           "id": "dafneapp",
           "name": "DafneApp",
-          "type": "Persönliches DevOps-Projekt",
+          "category": "Persönliches DevOps-Projekt",
           "stack": [
             "Python",
             "Flask",
@@ -528,30 +641,29 @@
             "Traefik",
             "Oracle Cloud"
           ],
-          "description": [
+          "highlights": [
             "Umsetzung eines End-to-End-DevOps-Workflows",
             "Containerisierte Flask-Anwendung mit Docker",
-            "CI/CD-Pipelines mit automatisierten Tests, Image-Build und Push ins Registry",
+            "CI/CD-Pipelines mit automatisierten Tests, Image-Build und Push in die GitHub Container Registry",
             "Continuous Deployment per SSH mit einem eigenen deploy.sh-Skript",
             "HTTPS-Routing und Zertifikatsverwaltung mit Traefik",
             "Vollautomatisiertes Production-Deployment auf Oracle Cloud"
           ],
-          "repository": "https://github.com/angie-ng/first-devops-project"
-        },
-        {
-          "id": "self-directed-learning-labs",
-          "name": "Selbstgesteuerte Lern-Labs",
-          "focus": [
-            "Linux-Administration",
-            "Containerisierung",
-            "Kubernetes",
-            "Terraform",
-            "Cloud-Grundlagen"
-          ],
-          "method": "Online-Kurse und Heim-Labs"
+          "link": "https://github.com/angie-ng/first-devops-project"
         }
       ],
       "experience": [
+        {
+          "id": "fn-brno",
+          "role": "IT-Support / Sekretärin",
+          "company": "Fakultní nemocnice Brno",
+          "period": "2020–2024",
+          "responsibilities": [
+            "Unterstützung bei Software- und Hardware-Problemen",
+            "Verbesserung von IT-Prozessen",
+            "Administration der Abteilungswebseite"
+          ]
+        },
         {
           "id": "embedit",
           "role": "Service Desk Operator",
@@ -568,34 +680,37 @@
           ]
         },
         {
-          "id": "fn-brno",
-          "role": "IT-Support / Sekretärin",
-          "company": "Fakultní nemocnice Brno",
-          "period": "2020–2024",
+          "id": "hackihub",
+          "role": "DevOps Engineer (Trainee)",
+          "company": "Hackihub",
+          "period": "2026",
           "responsibilities": [
-            "Unterstützung bei Software- und Hardware-Problemen",
-            "Verbesserung von IT-Prozessen",
-            "Administration der Abteilungswebseite"
+            "Aufbau und Deployment des Unternehmens-Dokumentationsportals: eine Docusaurus-Website gehostet auf AWS S3, ausgeliefert über CloudFront und Route 53, inklusive Infrastruktur-Setup",
+            "Automatisierte Generierung der kundenseitigen API-Dokumentation aus OpenAPI/Swagger-Spezifikationen, inklusive Filterung der Endpunkte nach Kriterien",
+            "Entwicklung wiederverwendbarer CI/CD-Workflows in GitHub Actions, GitLab CI/CD und Azure DevOps mit Cloud-Deployment auf AWS mithilfe von Terraform",
+            "Erstellung technischer und DevSecOps-Dokumentation, einschließlich Recherche, Content-Erstellung und Übersetzung",
+            "Manuelles Testen und Validieren von Software (API-Integration, Repository-Scanning, Testen von Plattformfunktionen)",
+            "Tägliche Arbeit mit Git und GitHub, einschließlich Branching, Pull Requests und Conventional Commits",
+            "Technische Koordination und Kundenkommunikation: Anforderungsklärung, Meeting-Koordination, Dokumentation von Entscheidungen und Follow-up"
           ]
         }
       ],
       "education": [
         {
-          "id": "masaryk-university",
-          "institution": "Masaryk-Universität, Brno",
-          "period": "2008–2015"
-        },
-        {
           "id": "gymnazium-matyase-lercha",
           "institution": "Gymnázium Matyáše Lercha, Brno",
           "period": "2004–2008"
+        },
+        {
+          "id": "masaryk-university",
+          "institution": "Masaryk-Universität, Brno",
+          "period": "2008–2015"
         }
       ]
     },
     "it": {
       "ui": {
         "about": "Chi sono",
-        "focus": "Focus",
         "skills": "Competenze",
         "technologies": "Tecnologie",
         "tools": "Strumenti",
@@ -609,18 +724,14 @@
         "experience": "Esperienza",
         "period": "Periodo",
         "projects": "Progetti",
-        "type": "Tipo",
-        "description": "Descrizione",
         "stack": "Stack tecnologico",
-        "method": "Metodo",
         "link": "Collegamento",
         "education": "Formazione"
       },
       "profile": {
         "name": "Angelika Viktorinová",
-        "title": "Junior DevOps Engineer",
-        "focus": "Cloud & Linux",
-        "summary": "Junior DevOps engineer in transizione verso l'IT attraverso lo studio autonomo. Imparo Linux, Git, Docker, CI/CD e il deployment cloud tramite lab pratici e progetti personali. Fortemente motivata a imparare, assumermi responsabilità e crescere in un ambiente DevOps reale."
+        "headline": "DevOps Engineer | Cloud | Automation",
+        "summary": "Ingegnere DevOps che trasforma le idee in sistemi funzionanti tramite infrastruttura, automazione, CI/CD e cloud. Mi assumo responsabilità, curo i dettagli e do valore a una comunicazione chiara e al lavoro di squadra. Attualmente mi sto preparando per la certificazione AWS Cloud Practitioner e ora desidero concentrarmi maggiormente su cloud e Kubernetes."
       },
       "contact": {
         "linkedin": "https://www.linkedin.com/in/angelika-viktorinova/",
@@ -634,14 +745,17 @@
           "Docker",
           "Docker Compose",
           "Kubernetes",
-          "CI/CD pipelines",
           "GitHub Actions",
+          "GitLab CI/CD",
+          "Azure DevOps",
           "Traefik",
           "Oracle Cloud",
-          "AWS"
+          "AWS",
+          "Terraform"
         ],
         "tools": [
           "Git",
+          "Notion",
           "Jira",
           "Grafana",
           "Splunk"
@@ -650,8 +764,8 @@
           "cz": "C2",
           "en": "C1",
           "fr": "B1",
-          "it": "A2",
-          "de": "A2"
+          "de": "B1",
+          "it": "A2"
         },
         "soft_skills": [
           "Pensiero analitico",
@@ -663,9 +777,37 @@
       },
       "projects": [
         {
+          "id": "self-directed-learning-labs",
+          "name": "Lab di apprendimento autonomo",
+          "category": "Corsi online e lab a casa",
+          "highlights": [
+            "Amministrazione Linux",
+            "Containerizzazione",
+            "Kubernetes",
+            "Terraform",
+            "Fondamenti del cloud"
+          ]
+        },
+        {
+          "id": "cli-cv",
+          "name": "CV web interattivo in stile CLI",
+          "category": "Progetto web personale",
+          "stack": [
+            "GitHub Actions",
+            "GitHub Pages",
+            "JSON"
+          ],
+          "highlights": [
+            "Progettazione del concept in stile CLI, del modello di interazione e della struttura del filesystem virtuale",
+            "Strutturazione dei contenuti del CV in JSON e separazione tra dati e presentazione",
+            "Creazione di una pipeline CI/CD per build e deployment automatizzati",
+            "Deployment automatizzato su GitHub Pages"
+          ]
+        },
+        {
           "id": "dafneapp",
           "name": "DafneApp",
-          "type": "Progetto DevOps personale",
+          "category": "Progetto DevOps personale",
           "stack": [
             "Python",
             "Flask",
@@ -675,30 +817,29 @@
             "Traefik",
             "Oracle Cloud"
           ],
-          "description": [
+          "highlights": [
             "Implementazione di un workflow DevOps end-to-end",
             "Applicazione Flask containerizzata con Docker",
-            "Pipeline CI/CD con test automatici, build dell'immagine e push nel registry",
+            "Pipeline CI/CD con test automatici, build dell'immagine e push nella GitHub Container Registry",
             "Continuous deployment via SSH con uno script deploy.sh personalizzato",
             "Routing HTTPS e gestione dei certificati con Traefik",
             "Deployment in produzione completamente automatizzato su Oracle Cloud"
           ],
-          "repository": "https://github.com/angie-ng/first-devops-project"
-        },
-        {
-          "id": "self-directed-learning-labs",
-          "name": "Lab di apprendimento autonomo",
-          "focus": [
-            "Amministrazione Linux",
-            "Containerizzazione",
-            "Kubernetes",
-            "Terraform",
-            "Fondamenti del cloud"
-          ],
-          "method": "Corsi online e lab a casa"
+          "link": "https://github.com/angie-ng/first-devops-project"
         }
       ],
       "experience": [
+        {
+          "id": "fn-brno",
+          "role": "IT Support / Segretaria",
+          "company": "Fakultní nemocnice Brno",
+          "period": "2020–2024",
+          "responsibilities": [
+            "Supporto nella risoluzione di problemi software e hardware",
+            "Miglioramento dei processi IT",
+            "Amministrazione del sito web del dipartimento"
+          ]
+        },
         {
           "id": "embedit",
           "role": "Service Desk Operator",
@@ -715,27 +856,31 @@
           ]
         },
         {
-          "id": "fn-brno",
-          "role": "IT Support / Segretaria",
-          "company": "Fakultní nemocnice Brno",
-          "period": "2020–2024",
+          "id": "hackihub",
+          "role": "DevOps Engineer (Trainee)",
+          "company": "Hackihub",
+          "period": "2026",
           "responsibilities": [
-            "Supporto nella risoluzione di problemi software e hardware",
-            "Miglioramento dei processi IT",
-            "Amministrazione del sito web del dipartimento"
+            "Realizzazione e deployment del portale di documentazione aziendale: un sito Docusaurus ospitato su AWS S3, distribuito tramite CloudFront e Route 53, inclusa la configurazione dell'infrastruttura",
+            "Automazione della generazione della documentazione API per i clienti a partire da specifiche OpenAPI/Swagger, con filtraggio degli endpoint secondo criteri",
+            "Sviluppo di workflow CI/CD riutilizzabili su GitHub Actions, GitLab CI/CD e Azure DevOps, con deployment cloud su AWS tramite Terraform",
+            "Redazione di documentazione tecnica e DevSecOps, inclusi ricerca, creazione di contenuti e traduzione",
+            "Test e validazione manuale del software (integrazione API, scansione dei repository, test delle funzionalità della piattaforma)",
+            "Uso quotidiano di Git e GitHub, inclusi branching, pull request e Conventional Commits",
+            "Coordinamento tecnico e comunicazione con il cliente: chiarimento dei requisiti, coordinamento delle riunioni, documentazione delle decisioni e follow-up"
           ]
         }
       ],
       "education": [
         {
-          "id": "masaryk-university",
-          "institution": "Università Masaryk, Brno",
-          "period": "2008–2015"
-        },
-        {
           "id": "gymnazium-matyase-lercha",
           "institution": "Gymnázium Matyáše Lercha, Brno",
           "period": "2004–2008"
+        },
+        {
+          "id": "masaryk-university",
+          "institution": "Università Masaryk, Brno",
+          "period": "2008–2015"
         }
       ]
     }

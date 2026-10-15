@@ -9,7 +9,6 @@ import { DEFAULT_LANGUAGE, getLocalizedContent } from './lang'
 
 const UI_FALLBACK = {
   about: 'About',
-  focus: 'Focus',
   skills: 'Skills',
   technologies: 'Technologies',
   tools: 'Tools',
@@ -23,10 +22,7 @@ const UI_FALLBACK = {
   experience: 'Experience',
   period: 'Period',
   projects: 'Projects',
-  type: 'Type',
-  description: 'Description',
   stack: 'Technology stack',
-  method: 'Method',
   link: 'Link',
   education: 'Education',
 }
@@ -68,13 +64,12 @@ function trimTrailingSpacer(lines) {
 function formatProjectFields(project, ui) {
   const lines = []
 
-  if (project.type) {
-    lines.push(labeled(ui.type, project.type))
+  if (project.category) {
+    lines.push(project.category)
   }
 
-  if (project.description) {
-    lines.push(labelOnly(ui.description))
-    project.description.forEach((desc) => lines.push(`  • ${desc}`))
+  if (project.highlights) {
+    project.highlights.forEach((item) => lines.push(`  • ${item}`))
   }
 
   if (project.stack) {
@@ -82,33 +77,24 @@ function formatProjectFields(project, ui) {
     project.stack.forEach((tech) => lines.push(`  • ${tech}`))
   }
 
-  if (project.focus) {
-    lines.push(labelOnly(ui.focus))
-    project.focus.forEach((item) => lines.push(`  • ${item}`))
-  }
-
-  if (project.method) {
-    lines.push(labeled(ui.method, project.method))
-  }
-
-  if (project.repository) {
-    lines.push(labeled(ui.link, project.repository))
+  if (project.link) {
+    lines.push(labeled(ui.link, project.link))
   }
 
   return lines
 }
 
 export function formatAbout(lang = DEFAULT_LANGUAGE) {
-  const { name, title, focus, summary } = getLocalizedContent(lang).profile || {}
+  const { name, headline, summary } = getLocalizedContent(lang).profile || {}
   const ui = getUi(lang)
 
   return [
     ...sectionHeading(ui.about, lang),
-    { text: `${name} — ${title}`, kind: 'role' },
-    labeled(ui.focus, focus),
+    { text: name, kind: 'role' },
+    headline ? { text: headline, kind: 'title' } : null,
     '\u00A0',
     summary,
-  ]
+  ].filter(Boolean)
 }
 
 export function formatSkills(lang = DEFAULT_LANGUAGE) {
