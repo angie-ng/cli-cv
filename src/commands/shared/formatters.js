@@ -54,6 +54,10 @@ function labelOnly(label) {
   return `${label}:`
 }
 
+function bullet(text) {
+  return { text: `• ${text}`, kind: 'bullet' }
+}
+
 function trimTrailingSpacer(lines) {
   if (lines[lines.length - 1] === '\u00A0') {
     lines.pop()
@@ -69,12 +73,12 @@ function formatProjectFields(project, ui) {
   }
 
   if (project.highlights) {
-    project.highlights.forEach((item) => lines.push(`  • ${item}`))
+    project.highlights.forEach((item) => lines.push(bullet(item)))
   }
 
   if (project.stack) {
     lines.push(labelOnly(ui.stack))
-    project.stack.forEach((tech) => lines.push(`  • ${tech}`))
+    project.stack.forEach((tech) => lines.push(bullet(tech)))
   }
 
   if (project.link) {
@@ -181,7 +185,7 @@ export function formatExperience(lang = DEFAULT_LANGUAGE) {
       kind: 'role',
     })
     ;(item.responsibilities || []).forEach((resp) => {
-      lines.push(`  • ${resp}`)
+      lines.push(bullet(resp))
     })
     lines.push('\u00A0')
   })
@@ -202,7 +206,7 @@ export function formatExperienceEntry(entryId, lang = DEFAULT_LANGUAGE) {
   ]
 
   ;(item.responsibilities || []).forEach((resp) => {
-    lines.push(`  • ${resp}`)
+    lines.push(bullet(resp))
   })
 
   return lines

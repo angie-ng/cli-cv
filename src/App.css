@@ -151,6 +151,11 @@
   font-weight: 600;
 }
 
+.terminal-output.is-bullet {
+  padding-left: 4ch;
+  text-indent: -2ch;
+}
+
 .terminal-link {
   color: #7ec8ff;
   text-decoration: underline;

@@ -96,6 +96,7 @@ function outputLineClassName(line, entryIsError) {
     if (line.isError) return 'terminal-output error'
     if (line.kind === 'title') return 'terminal-output is-title'
     if (line.kind === 'role') return 'terminal-output is-role'
+    if (line.kind === 'bullet') return 'terminal-output is-bullet'
   }
   return entryIsError ? 'terminal-output error' : 'terminal-output'
 }
