@@ -187,7 +187,7 @@
         "technologies": "Technologie",
         "tools": "Nástroje",
         "languages": "Jazyky",
-        "softSkills": "Měkké dovednosti",
+        "softSkills": "Soft Skills",
         "contact": "Kontakt",
         "email": "E-mail",
         "linkedin": "LinkedIn",
@@ -250,8 +250,8 @@
       "projects": [
         {
           "id": "self-directed-learning-labs",
-          "name": "Samostatné vzdělávací laby",
-          "category": "Online kurzy a domácí laby",
+          "name": "Vzdělávací laboratoře",
+          "category": "Online kurzy a domácí laboratoře",
           "highlights": [
             "Administrace Linuxu",
             "Kontejnerizace",
@@ -321,7 +321,7 @@
             "First-line support (založení ticketu, klasifikace, přiřazení, eskalace)",
             "Řešení incidentů a základní troubleshooting",
             "Správa přístupů přes Active Directory a IDM",
-            "L1 investigation",
+            "L1 investigace",
             "Konfigurace DNS",
             "Monitoring pomocí Grafana a Splunk",
             "Spolupráce s mezinárodními týmy"
@@ -338,7 +338,7 @@
             "Vývoj znovupoužitelných CI/CD workflow v GitHub Actions, GitLab CI/CD a Azure DevOps s nasazením do cloudu na AWS pomocí Terraformu",
             "Psaní technické a DevSecOps dokumentace, včetně rešerší, tvorby obsahu a překladů",
             "Manuální testování a validace softwaru (integrace API, skenování repozitářů, testování funkcí platformy)",
-            "Každodenní práce s Gitem a GitHubem, včetně větvení, pull requestů a Conventional Commits",
+            "Každodenní práce s Gitem a GitHubem, včetně branches, pull requestů a Conventional Commits",
             "Technická koordinace a komunikace se zákazníkem: upřesňování požadavků, koordinace schůzek, dokumentace rozhodnutí a follow-up"
           ]
         }
@@ -623,7 +623,7 @@
           ],
           "highlights": [
             "Entwurf des CLI-artigen Konzepts, des Interaktionsmodells und der Struktur des virtuellen Dateisystems",
-            "Strukturierung der Lebenslauf-Inhalte als JSON und Trennung von Daten und Präsentation",
+            "Strukturierung der Lebenslauf-Inhalte als JSON und Trennung unter Daten und Präsentation",
             "Aufbau einer CI/CD-Pipeline für automatisierten Build und Deployment",
             "Automatisiertes Deployment auf GitHub Pages"
           ]
@@ -890,28 +890,28 @@
       ".interesting-fact": {
         "en": [
           "Hidden note:",
-          "I like languages and attend polyglot conferences.",
-          "I also sing in my own vocal ensemble focused on early music."
+          "At university, I competed in ballroom dancing and rose to the highest national class.",
+          "I co-founded and co-manage an acappella vocal ensemble focused on early music."
         ],
         "cz": [
           "Skrytá poznámka:",
-          "Mám ráda jazyky a chodím na polyglotské konference.",
-          "Zpívám také ve vlastním vokálním souboru zaměřeném na starou hudbu."
+          "Na vysoké škole jsem závodně tančila společenské tance a dostala se do nejvyšší národní třídy.",
+          "Spoluzaložila jsem a spoluvedu a cappella vokální soubor zaměřený na starou hudbu."
         ],
         "fr": [
           "Note cachée :",
-          "J'aime les langues et je participe à des conférences polyglottes.",
-          "Je chante aussi dans mon propre ensemble vocal dédié à la musique ancienne."
+          "À l'université, j'ai participé à des compétitions de danses de salon et j'ai atteint la plus haute classe nationale.",
+          "J'ai cofondé et je co-dirige un ensemble vocal a cappella dédié à la musique ancienne."
         ],
         "de": [
           "Versteckter Hinweis:",
-          "Ich mag Sprachen und besuche Polyglot-Konferenzen.",
-          "Ich singe außerdem in meinem eigenen Vokalensemble mit Fokus auf Alte Musik."
+          "An der Universität habe ich Standard- und Lateintanz wettkampfmäßig betrieben und die höchste nationale Klasse erreicht.",
+          "Ich habe ein A-cappella-Vokalensemble mit Fokus auf Alte Musik mitgegründet und leite es mit."
         ],
         "it": [
           "Nota nascosta:",
-          "Mi piacciono le lingue e partecipo a conferenze polyglot.",
-          "Canto anche nel mio ensemble vocale dedicato alla musica antica."
+          "All'università ho gareggiato nelle danze da sala e ho raggiunto la classe nazionale più alta.",
+          "Ho cofondato e co-dirigo un ensemble vocale a cappella dedicato alla musica antica."
         ]
       }
     },
@@ -919,23 +919,28 @@
       ".interesting-fact": {
         "en": [
           "Hidden note:",
-          "DafneApp started as a learning playground and grew into a full CI/CD + cloud deployment pipeline."
+          "I wrote a 227-page novel between the ages of 9 and 14 - and later published it.",
+          "At the age of 8 I wrote a song that was performed in concert by a well-known local children chorus."
         ],
         "cz": [
           "Skrytá poznámka:",
-          "DafneApp začal jako cvičné prostředí a vyrostl v kompletní CI/CD + cloud deployment pipeline."
+          "Mezi 9. a 14. rokem jsem napsala 227stránkový román — a později ho vydala.",
+          "V osmi letech jsem napsala písničku, kterou na koncertě uvedl známý místní dětský sbor."
         ],
         "fr": [
           "Note cachée :",
-          "DafneApp a commencé comme terrain d'apprentissage et est devenu un pipeline complet CI/CD + déploiement cloud."
+          "J'ai écrit un roman de 227 pages entre 9 et 14 ans — et je l'ai ensuite publié.",
+          "À 8 ans, j'ai composé une chanson interprétée en concert par une chorale d'enfants locale bien connue."
         ],
         "de": [
           "Versteckter Hinweis:",
-          "DafneApp begann als Lernumgebung und wurde zu einer vollständigen CI/CD- und Cloud-Deployment-Pipeline."
+          "Zwischen 9 und 14 Jahren habe ich einen 227-seitigen Roman geschrieben — und später veröffentlicht.",
+          "Mit 8 Jahren habe ich ein Lied geschrieben, das von einem bekannten lokalen Kinderchor im Konzert aufgeführt wurde."
         ],
         "it": [
           "Nota nascosta:",
-          "DafneApp è nato come ambiente di pratica ed è cresciuto fino a una pipeline completa di CI/CD e deployment cloud."
+          "Tra i 9 e i 14 anni ho scritto un romanzo di 227 pagine — e in seguito l'ho pubblicato.",
+          "A 8 anni ho scritto una canzone eseguita in concerto da un noto coro di bambini locale."
         ]
       }
     },
@@ -943,23 +948,38 @@
       ".interesting-fact": {
         "en": [
           "Hidden note:",
-          "Outside IT I also play badminton and table tennis."
+          "When I became obsessed with DevOps, I couldn't stop with discovering more and more so I learned English just to be able to study more.",
+          "This sparked my passion for learning new languages, and I've already learned two more.",
+          "No guarantees where I'll stop. :D",
+          "I have won a porridge-cooking competition."
         ],
         "cz": [
           "Skrytá poznámka:",
-          "Mimo IT hraju také badminton a stolní tenis."
+          "Když jsem se začala posedle věnovat DevOps, nemohla jsem se zastavit v objevování dalších a dalších věcí, tak jsem se naučila anglicky, abych mohla studovat víc.",
+          "To ve mně zažehlo vášeň pro učení se novým jazykům a už jsem se naučila další dva.",
+          "Žádná záruka, kde se zastavím. :D",
+          "Vyhrála jsem soutěž v vaření ovesné kaše."
         ],
         "fr": [
           "Note cachée :",
-          "En dehors de l'IT, je joue aussi au badminton et au tennis de table."
+          "Quand je me suis passionnée pour le DevOps, je n'arrivais plus à m'arrêter de découvrir toujours plus, alors j'ai appris l'anglais juste pour pouvoir étudier davantage.",
+          "Cela a allumé ma passion pour l'apprentissage des langues, et j'en ai déjà appris deux de plus.",
+          "Aucune garantie sur l'endroit où je m'arrêterai. :D",
+          "J'ai gagné un concours de cuisine de porridge."
         ],
         "de": [
           "Versteckter Hinweis:",
-          "Neben der IT spiele ich auch Badminton und Tischtennis."
+          "Als ich vom DevOps besessen war, konnte ich nicht aufhören, immer mehr zu entdecken, also habe ich Englisch gelernt, nur um mehr lernen zu können.",
+          "Das hat meine Leidenschaft für neue Sprachen entfacht, und ich habe bereits zwei weitere gelernt.",
+          "Keine Garantie, wo ich aufhöre. :D",
+          "Ich habe einen Haferbrei-Kochwettbewerb gewonnen."
         ],
         "it": [
           "Nota nascosta:",
-          "Fuori dall'IT gioco anche a badminton e tennistavolo."
+          "Quando sono diventata ossessionata dal DevOps, non riuscivo a smettere di scoprire sempre di più, così ho imparato l'inglese solo per poter studiare di più.",
+          "Questo ha acceso la mia passione per l'apprendimento delle lingue, e ne ho già imparate altre due.",
+          "Nessuna garanzia su dove mi fermerò. :D",
+          "Ho vinto una gara di cucina del porridge."
         ]
       }
     }
