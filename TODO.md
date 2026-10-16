@@ -67,4 +67,4 @@
 ## 11) Nice-to-have (Optional)
 
 - [x] Blinking cursor in prompt
-- [ ] Funny error message when user types "sudo"
+- [x] Funny error message when user types "sudo"

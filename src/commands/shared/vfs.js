@@ -35,7 +35,6 @@ export const HOME_PATH = '/home/reader'
 
 /**
  * Shown when the reader tries to leave their home jail
- * (e.g. /, /home, /home/david, ../.. from ~).
  */
 export const OUT_OF_SCOPE_MESSAGE =
   "Nice try. That path is out of scope with 'reader' privileges. Stay in your directory, please, and don't try to hack me :D"
